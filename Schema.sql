@@ -108,17 +108,19 @@ DEFAULT CHARACTER SET = utf8;
 CREATE TABLE IF NOT EXISTS `airlinesdb`.`reservations` (
   `reservation_id` INT(11) NOT NULL,
   `reservation_Date` DATETIME NULL DEFAULT NULL,
-  `airports_airport_id` VARCHAR(5) NOT NULL,
   `agencies_agency_id` INT(11) NOT NULL,
+  `flight_schedule_id` INT(11) NOT NULL,
   PRIMARY KEY (`reservation_id`),
-  INDEX `fk_reservations_airports1_idx` (`airports_airport_id` ASC) VISIBLE,
   INDEX `fk_reservations_agencies1_idx` (`agencies_agency_id` ASC) VISIBLE,
+  INDEX `fk_reservations_flight_schedule1_idx` (`flight_schedule_id` ASC) VISIBLE,
   CONSTRAINT `fk_reservations_agencies1`
     FOREIGN KEY (`agencies_agency_id`)
     REFERENCES `airlinesdb`.`agencies` (`agency_id`),
-  CONSTRAINT `fk_reservations_airports1`
-    FOREIGN KEY (`airports_airport_id`)
-    REFERENCES `airlinesdb`.`airports` (`airport_id`))
+  CONSTRAINT `fk_reservations_flight_schedule1`
+    FOREIGN KEY (`flight_schedule_id`)
+    REFERENCES `airlinesdb`.`flight_schedule` (`flight_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
