@@ -37,8 +37,8 @@ public class ExceptionTranslator implements ProblemHandling {
     private static final String PATH_KEY = "path";
     private static final String VIOLATIONS_KEY = "violations";
 
-    @Value("${jhipster.clientApp.name}")
-    private String applicationName;
+    // @Value("${jhipster.clientApp.name}")
+    private String applicationName = "airlinesApp";
 
     /**
      * Post-process the Problem payload to add the message key for the front-end if

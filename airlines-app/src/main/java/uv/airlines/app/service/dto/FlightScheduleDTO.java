@@ -9,6 +9,8 @@ import java.util.Objects;
  */
 public class FlightScheduleDTO implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     private Long id;
 
     private Instant takeoffDate;

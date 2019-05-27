@@ -11,8 +11,8 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = {})
 public interface AirportsMapper extends EntityMapper<AirportsDTO, Airports> {
 
-    @Mapping(target = "flightSchedules", ignore = true)
-    @Mapping(target = "flightSchedules", ignore = true)
+    @Mapping(target = "airportTakeoff", ignore = true)
+    @Mapping(target = "airportArrival", ignore = true)
     @Mapping(target = "reservations", ignore = true)
     Airports toEntity(AirportsDTO airportsDTO);
 
