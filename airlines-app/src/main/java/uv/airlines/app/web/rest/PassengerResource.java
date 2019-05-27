@@ -30,8 +30,8 @@ public class PassengerResource {
 
     private static final String ENTITY_NAME = "testAppPassenger";
 
-    @Value("${jhipster.clientApp.name}")
-    private String applicationName;
+    // @Value("${jhipster.clientApp.name}")
+    private String applicationName = "airlinesApp";
 
     private final PassengerService passengerService;
 

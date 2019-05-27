@@ -9,6 +9,8 @@ import java.util.Objects;
  */
 public class ReservationPassengersDTO implements Serializable {
 
+    private static final long serialVersionUID = 1417761848757342319L;
+
     private Long id;
 
     private Integer luggagesQuanity;

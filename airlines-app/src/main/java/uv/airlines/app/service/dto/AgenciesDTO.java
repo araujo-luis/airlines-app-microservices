@@ -9,6 +9,8 @@ import java.util.Objects;
  */
 public class AgenciesDTO implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     private Long id;
 
     @Size(max = 45)

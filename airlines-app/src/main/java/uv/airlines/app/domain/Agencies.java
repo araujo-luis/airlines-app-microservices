@@ -31,15 +31,14 @@ public class Agencies implements Serializable {
     private String name;
 
     @Size(max = 45)
-    @Column(name = "jhi_user", length = 45)
+    @Column(name = "user", length = 45)
     private String user;
 
     @Size(max = 45)
-    @Column(name = "jhi_password", length = 45)
+    @Column(name = "password", length = 45)
     private String password;
 
     @OneToMany(mappedBy = "agenciesAgencyId")
-
     private Set<Reservations> reservations = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not

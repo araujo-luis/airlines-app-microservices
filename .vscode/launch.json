@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-AirlinesAppApplication<airlines-app>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "uv.airlines.app.AirlinesAppApplication",
+            "projectName": "airlines-app",
+            "args": ""
+        }
+    ]
+}

@@ -29,8 +29,8 @@ public class FlightScheduleResource {
 
     private static final String ENTITY_NAME = "testAppFlightSchedule";
 
-    @Value("${jhipster.clientApp.name}")
-    private String applicationName;
+    // @Value("${jhipster.clientApp.name}")
+    private String applicationName = "airlinesApp";
 
     private final FlightScheduleService flightScheduleService;
 

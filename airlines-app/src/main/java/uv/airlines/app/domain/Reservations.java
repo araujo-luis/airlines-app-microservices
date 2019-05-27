@@ -31,7 +31,6 @@ public class Reservations implements Serializable {
     private Instant reservationDate;
 
     @OneToMany(mappedBy = "reservationId")
-
     private Set<ReservationPassengers> reservationPassengers = new HashSet<>();
 
     @ManyToOne
