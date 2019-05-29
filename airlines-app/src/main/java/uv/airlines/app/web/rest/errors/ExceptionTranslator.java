@@ -2,7 +2,6 @@ package uv.airlines.app.web.rest.errors;
 
 import io.github.jhipster.web.util.HeaderUtil;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.ConcurrencyFailureException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
