@@ -97,17 +97,36 @@ public class FlightScheduleServiceImpl implements FlightScheduleService {
 	@Override
 	public List<FlightScheduleDTO> findFlights(String airportTakeoff, String airportArrival, Long takeoffDate,
 			Long takeoffDate2) {	
-		Date takeoffDateInstant = new Date(takeoffDate);
-		Date takeoffDateInstant2 = new Date(takeoffDate2);
-		Calendar c = Calendar.getInstance(); 
-		c.setTime(takeoffDateInstant2); 
-		c.add(Calendar.DATE, 1);
-		takeoffDateInstant2 = c.getTime();
 		
-		System.out.println(takeoffDateInstant);
-		System.out.println(takeoffDateInstant2);
+		LocalDateTime takeoffLocalDate =
+			    Instant.ofEpochMilli(takeoffDate).atZone(ZoneId.systemDefault()).toLocalDateTime();
+		LocalDateTime takeoffLocalDate2 =
+			    Instant.ofEpochMilli(takeoffDate).atZone(ZoneId.systemDefault()).toLocalDateTime().plusDays(1);
+		
+		System.out.println(takeoffLocalDate);
+		System.out.println(takeoffLocalDate2);
 		return flightScheduleRepository.findByAirportTakeoff_idAndAirportArrival_idAndTakeoffDateGreaterThanEqualAndTakeoffDateLessThan(
-				airportTakeoff, airportArrival, takeoffDateInstant, takeoffDateInstant2)
+				airportTakeoff, airportArrival, takeoffLocalDate, takeoffLocalDate2)
+				.stream().map(flightScheduleMapper::toDto)
+                .collect(Collectors.toCollection(LinkedList::new));
+	}
+
+	@Override
+	public List<FlightScheduleDTO> findOptionalFlights(String airportTakeoff, String airportArrival, Long takeoffDate,
+			Long takeoffDate2) {
+				
+		LocalDateTime takeoffLocalDate =
+			    Instant.ofEpochMilli(takeoffDate).atZone(ZoneId.systemDefault()).toLocalDateTime().minusDays(3);
+		LocalDateTime takeoffLocalDate2 =
+			    Instant.ofEpochMilli(takeoffDate).atZone(ZoneId.systemDefault()).toLocalDateTime().plusDays(3);
+		
+		
+		
+		System.out.println(takeoffLocalDate);
+		System.out.println(takeoffLocalDate2);
+		
+		return flightScheduleRepository.findByAirportTakeoff_idAndAirportArrival_idAndTakeoffDateGreaterThanEqualAndTakeoffDateLessThanOrderByFlightRateAsc(
+				airportTakeoff, airportArrival, takeoffLocalDate, takeoffLocalDate2)
 				.stream().map(flightScheduleMapper::toDto)
                 .collect(Collectors.toCollection(LinkedList::new));
 	}

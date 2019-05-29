@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 
@@ -25,12 +26,12 @@ public class FlightSchedule implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
     @Column(name = "takeoff_date")
-    private Date takeoffDate;
-
+    private LocalDateTime takeoffDate;
+    
     @Column(name = "arrival_date")
-    private Date arrivalDate;
+    private LocalDateTime arrivalDate;
 
     @Column(name = "flight_rate")
     private Float flightRate;
@@ -43,7 +44,7 @@ public class FlightSchedule implements Serializable {
 		super();
 	}
 
-	public FlightSchedule(Long id, Date takeoffDate, Date  arrivalDate, Float flightRate, Aircrafts aircraftId,
+	public FlightSchedule(Long id, LocalDateTime takeoffDate, LocalDateTime  arrivalDate, Float flightRate, Aircrafts aircraftId,
 			Airports airportTakeoff, Airports airportArrival) {
 		super();
 		this.id = id;
@@ -73,29 +74,29 @@ public class FlightSchedule implements Serializable {
         this.id = id;
     }
 
-    public Date  getTakeoffDate() {
+    public LocalDateTime  getTakeoffDate() {
         return takeoffDate;
     }
 
-    public FlightSchedule takeoffDate(Date  takeoffDate) {
+    public FlightSchedule takeoffDate(LocalDateTime  takeoffDate) {
         this.takeoffDate = takeoffDate;
         return this;
     }
 
-    public void setTakeoffDate(Date  takeoffDate) {
+    public void setTakeoffDate(LocalDateTime  takeoffDate) {
         this.takeoffDate = takeoffDate;
     }
 
-    public Date  getArrivalDate() {
+    public LocalDateTime  getArrivalDate() {
         return arrivalDate;
     }
 
-    public FlightSchedule arrivalDate(Date  arrivalDate) {
+    public FlightSchedule arrivalDate(LocalDateTime  arrivalDate) {
         this.arrivalDate = arrivalDate;
         return this;
     }
 
-    public void setArrivalDate(Date  arrivalDate) {
+    public void setArrivalDate(LocalDateTime  arrivalDate) {
         this.arrivalDate = arrivalDate;
     }
 
