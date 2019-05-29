@@ -13,10 +13,9 @@ public interface AirportsMapper extends EntityMapper<AirportsDTO, Airports> {
 
     @Mapping(target = "airportTakeoff", ignore = true)
     @Mapping(target = "airportArrival", ignore = true)
-    @Mapping(target = "reservations", ignore = true)
     Airports toEntity(AirportsDTO airportsDTO);
 
-    default Airports fromId(Long id) {
+    default Airports fromId(String id) {
         if (id == null) {
             return null;
         }

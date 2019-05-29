@@ -11,6 +11,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -85,4 +93,22 @@ public class FlightScheduleServiceImpl implements FlightScheduleService {
         log.debug("Request to delete FlightSchedule : {}", id);
         flightScheduleRepository.deleteById(id);
     }
+
+	@Override
+	public List<FlightScheduleDTO> findFlights(String airportTakeoff, String airportArrival, Long takeoffDate,
+			Long takeoffDate2) {	
+		Date takeoffDateInstant = new Date(takeoffDate);
+		Date takeoffDateInstant2 = new Date(takeoffDate2);
+		Calendar c = Calendar.getInstance(); 
+		c.setTime(takeoffDateInstant2); 
+		c.add(Calendar.DATE, 1);
+		takeoffDateInstant2 = c.getTime();
+		
+		System.out.println(takeoffDateInstant);
+		System.out.println(takeoffDateInstant2);
+		return flightScheduleRepository.findByAirportTakeoff_idAndAirportArrival_idAndTakeoffDateGreaterThanEqualAndTakeoffDateLessThan(
+				airportTakeoff, airportArrival, takeoffDateInstant, takeoffDateInstant2)
+				.stream().map(flightScheduleMapper::toDto)
+                .collect(Collectors.toCollection(LinkedList::new));
+	}
 }

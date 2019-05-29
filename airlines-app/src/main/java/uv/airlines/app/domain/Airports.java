@@ -21,8 +21,8 @@ public class Airports implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(length=5)
+    private String id;
 
     @Size(max = 5)
     @Column(name = "type", length = 5)
@@ -69,16 +69,13 @@ public class Airports implements Serializable {
     @OneToMany(mappedBy = "airportArrival")
     private Set<FlightSchedule> airportArrival = new HashSet<>();
 
-    @OneToMany(mappedBy = "airportsAirportId")
-    private Set<Reservations> reservations = new HashSet<>();
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not
     // remove
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -169,7 +166,32 @@ public class Airports implements Serializable {
         return this;
     }
 
-    public void setMunipality(String munipality) {
+    public Airports() {
+		super();
+	}
+
+	public Airports(String id, @Size(max = 5) String type, @Size(max = 45) String name, Integer elevation,
+			@Size(max = 4) String continent, @Size(max = 4) String country, @Size(max = 10) String region,
+			@Size(max = 200) String munipality, @Size(max = 10) String gpscode, @Size(max = 10) String localcode,
+			@Size(max = 300) String coordinates, Set<FlightSchedule> airportTakeoff,
+			Set<FlightSchedule> airportArrival) {
+		super();
+		this.id = id;
+		this.type = type;
+		this.name = name;
+		this.elevation = elevation;
+		this.continent = continent;
+		this.country = country;
+		this.region = region;
+		this.munipality = munipality;
+		this.gpscode = gpscode;
+		this.localcode = localcode;
+		this.coordinates = coordinates;
+		this.airportTakeoff = airportTakeoff;
+		this.airportArrival = airportArrival;
+	}
+
+	public void setMunipality(String munipality) {
         this.munipality = munipality;
     }
 
@@ -262,30 +284,6 @@ public class Airports implements Serializable {
         this.airportArrival = flightSchedules;
     }
 
-    public Set<Reservations> getReservations() {
-        return reservations;
-    }
-
-    public Airports reservations(Set<Reservations> reservations) {
-        this.reservations = reservations;
-        return this;
-    }
-
-    public Airports addReservations(Reservations reservations) {
-        this.reservations.add(reservations);
-        reservations.setAirportsAirportId(this);
-        return this;
-    }
-
-    public Airports removeReservations(Reservations reservations) {
-        this.reservations.remove(reservations);
-        reservations.setAirportsAirportId(null);
-        return this;
-    }
-
-    public void setReservations(Set<Reservations> reservations) {
-        this.reservations = reservations;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and
     // setters here, do not remove
 

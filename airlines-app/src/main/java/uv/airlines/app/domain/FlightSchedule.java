@@ -8,6 +8,8 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -25,10 +27,10 @@ public class FlightSchedule implements Serializable {
     private Long id;
 
     @Column(name = "takeoff_date")
-    private Instant takeoffDate;
+    private Date takeoffDate;
 
     @Column(name = "arrival_date")
-    private Instant arrivalDate;
+    private Date arrivalDate;
 
     @Column(name = "flight_rate")
     private Float flightRate;
@@ -37,7 +39,23 @@ public class FlightSchedule implements Serializable {
     @JsonIgnoreProperties("aircraftId")
     private Aircrafts aircraftId;
 
-    @ManyToOne
+    public FlightSchedule() {
+		super();
+	}
+
+	public FlightSchedule(Long id, Date takeoffDate, Date  arrivalDate, Float flightRate, Aircrafts aircraftId,
+			Airports airportTakeoff, Airports airportArrival) {
+		super();
+		this.id = id;
+		this.takeoffDate = takeoffDate;
+		this.arrivalDate = arrivalDate;
+		this.flightRate = flightRate;
+		this.aircraftId = aircraftId;
+		this.airportTakeoff = airportTakeoff;
+		this.airportArrival = airportArrival;
+	}
+
+	@ManyToOne
     @JsonIgnoreProperties("airportTakeoff")
     private Airports airportTakeoff;
 
@@ -55,29 +73,29 @@ public class FlightSchedule implements Serializable {
         this.id = id;
     }
 
-    public Instant getTakeoffDate() {
+    public Date  getTakeoffDate() {
         return takeoffDate;
     }
 
-    public FlightSchedule takeoffDate(Instant takeoffDate) {
+    public FlightSchedule takeoffDate(Date  takeoffDate) {
         this.takeoffDate = takeoffDate;
         return this;
     }
 
-    public void setTakeoffDate(Instant takeoffDate) {
+    public void setTakeoffDate(Date  takeoffDate) {
         this.takeoffDate = takeoffDate;
     }
 
-    public Instant getArrivalDate() {
+    public Date  getArrivalDate() {
         return arrivalDate;
     }
 
-    public FlightSchedule arrivalDate(Instant arrivalDate) {
+    public FlightSchedule arrivalDate(Date  arrivalDate) {
         this.arrivalDate = arrivalDate;
         return this;
     }
 
-    public void setArrivalDate(Instant arrivalDate) {
+    public void setArrivalDate(Date  arrivalDate) {
         this.arrivalDate = arrivalDate;
     }
 

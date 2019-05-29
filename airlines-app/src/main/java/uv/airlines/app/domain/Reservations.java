@@ -39,7 +39,7 @@ public class Reservations implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties("reservations")
-    private Airports airportsAirportId;
+    private FlightSchedule flightScheduleId;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not
     // remove
@@ -102,17 +102,12 @@ public class Reservations implements Serializable {
         this.agenciesAgencyId = agencies;
     }
 
-    public Airports getAirportsAirportId() {
-        return airportsAirportId;
+    public FlightSchedule getFlightScheduleId() {
+        return flightScheduleId;
     }
 
-    public Reservations airportsAirportId(Airports airports) {
-        this.airportsAirportId = airports;
-        return this;
-    }
-
-    public void setAirportsAirportId(Airports airports) {
-        this.airportsAirportId = airports;
+    public void setflightScheduleId(FlightSchedule flightSchedule) {
+        this.flightScheduleId = flightSchedule;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and
     // setters here, do not remove

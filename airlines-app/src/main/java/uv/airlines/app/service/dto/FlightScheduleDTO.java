@@ -1,7 +1,9 @@
 package uv.airlines.app.service.dto;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -13,17 +15,17 @@ public class FlightScheduleDTO implements Serializable {
 
     private Long id;
 
-    private Instant takeoffDate;
+    private Date  takeoffDate;
 
-    private Instant arrivalDate;
+    private Date  arrivalDate;
 
     private Float flightRate;
 
     private Long aircraftIdId;
 
-    private Long airportTakeoffId;
+    private String airportTakeoffId;
 
-    private Long airportArrivalId;
+    private String airportArrivalId;
 
     public Long getId() {
         return id;
@@ -33,19 +35,19 @@ public class FlightScheduleDTO implements Serializable {
         this.id = id;
     }
 
-    public Instant getTakeoffDate() {
+    public Date  getTakeoffDate() {
         return takeoffDate;
     }
 
-    public void setTakeoffDate(Instant takeoffDate) {
+    public void setTakeoffDate(Date  takeoffDate) {
         this.takeoffDate = takeoffDate;
     }
 
-    public Instant getArrivalDate() {
+    public Date  getArrivalDate() {
         return arrivalDate;
     }
 
-    public void setArrivalDate(Instant arrivalDate) {
+    public void setArrivalDate(Date  arrivalDate) {
         this.arrivalDate = arrivalDate;
     }
 
@@ -65,19 +67,19 @@ public class FlightScheduleDTO implements Serializable {
         this.aircraftIdId = aircraftsId;
     }
 
-    public Long getAirportTakeoffId() {
+    public String getAirportTakeoffId() {
         return airportTakeoffId;
     }
 
-    public void setAirportTakeoffId(Long airportsId) {
+    public void setAirportTakeoffId(String airportsId) {
         this.airportTakeoffId = airportsId;
     }
 
-    public Long getAirportArrivalId() {
+    public String getAirportArrivalId() {
         return airportArrivalId;
     }
 
-    public void setAirportArrivalId(Long airportsId) {
+    public void setAirportArrivalId(String airportsId) {
         this.airportArrivalId = airportsId;
     }
 
