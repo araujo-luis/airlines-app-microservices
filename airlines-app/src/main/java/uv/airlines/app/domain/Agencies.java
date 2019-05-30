@@ -25,14 +25,6 @@ public class Agencies implements Serializable {
     @Column(name = "name", length = 45)
     private String name;
 
-    @Size(max = 45)
-    @Column(name = "user", length = 45)
-    private String user;
-
-    @Size(max = 45)
-    @Column(name = "password", length = 45)
-    private String password;
-
     @OneToMany(mappedBy = "agenciesAgencyId")
     private Set<Reservations> reservations = new HashSet<>();
 
@@ -57,32 +49,6 @@ public class Agencies implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getUser() {
-        return user;
-    }
-
-    public Agencies user(String user) {
-        this.user = user;
-        return this;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public Agencies password(String password) {
-        this.password = password;
-        return this;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public Set<Reservations> getReservations() {
@@ -130,7 +96,6 @@ public class Agencies implements Serializable {
 
     @Override
     public String toString() {
-        return "Agencies{" + "id=" + getId() + ", name='" + getName() + "'" + ", user='" + getUser() + "'"
-                + ", password='" + getPassword() + "'" + "}";
+        return "Agencies{" + "id=" + getId() + ", name='" + getName() + "'" + ", user='" + "'" + "}";
     }
 }

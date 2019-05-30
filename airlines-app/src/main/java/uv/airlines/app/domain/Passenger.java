@@ -30,7 +30,6 @@ public class Passenger implements Serializable {
     private String lastname;
 
     @OneToMany(mappedBy = "passDni")
-
     private Set<ReservationPassengers> reservationPassengers = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not

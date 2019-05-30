@@ -4,9 +4,15 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 /**
  * A DTO for the {@link uv.airlines.app.domain.FlightSchedule} entity.
  */
+
+@AllArgsConstructor
+@NoArgsConstructor
 public class FlightScheduleDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -15,7 +15,7 @@ public class ReservationPassengersDTO implements Serializable {
 
     private Integer luggagesQuanity;
 
-    private Integer priority;
+    private Boolean priority;
 
     @Size(max = 6)
     private String seatNumber;
@@ -23,6 +23,10 @@ public class ReservationPassengersDTO implements Serializable {
     private Long reservationIdId;
 
     private Long passDniId;
+
+    private Double price;
+
+    private Boolean paid;
 
     public Long getId() {
         return id;
@@ -40,11 +44,11 @@ public class ReservationPassengersDTO implements Serializable {
         this.luggagesQuanity = luggagesQuanity;
     }
 
-    public Integer getPriority() {
+    public Boolean getPriority() {
         return priority;
     }
 
-    public void setPriority(Integer priority) {
+    public void setPriority(Boolean priority) {
         this.priority = priority;
     }
 
@@ -98,5 +102,21 @@ public class ReservationPassengersDTO implements Serializable {
         return "ReservationPassengersDTO{" + "id=" + getId() + ", luggagesQuanity=" + getLuggagesQuanity()
                 + ", priority=" + getPriority() + ", seatNumber='" + getSeatNumber() + "'" + ", reservationId="
                 + getReservationIdId() + ", passDni=" + getPassDniId() + "}";
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Boolean getPaid() {
+        return paid;
+    }
+
+    public void setPaid(Boolean paid) {
+        this.paid = paid;
     }
 }

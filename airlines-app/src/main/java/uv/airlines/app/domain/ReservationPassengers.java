@@ -25,7 +25,13 @@ public class ReservationPassengers implements Serializable {
     private Integer luggagesQuanity;
 
     @Column(name = "priority")
-    private Integer priority;
+    private Boolean priority;
+
+    @Column(name = "price")
+    private Double price;
+
+    @Column(name = "paid")
+    private Boolean paid;
 
     @Size(max = 6)
     @Column(name = "seat_number", length = 6)
@@ -62,16 +68,16 @@ public class ReservationPassengers implements Serializable {
         this.luggagesQuanity = luggagesQuanity;
     }
 
-    public Integer getPriority() {
+    public Boolean getPriority() {
         return priority;
     }
 
-    public ReservationPassengers priority(Integer priority) {
+    public ReservationPassengers priority(Boolean priority) {
         this.priority = priority;
         return this;
     }
 
-    public void setPriority(Integer priority) {
+    public void setPriority(Boolean priority) {
         this.priority = priority;
     }
 
@@ -113,6 +119,27 @@ public class ReservationPassengers implements Serializable {
     public void setPassDni(Passenger passenger) {
         this.passDni = passenger;
     }
+
+    public Double getPrice() {
+        return this.price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Boolean isPaid() {
+        return this.paid;
+    }
+
+    public Boolean getPaid() {
+        return this.paid;
+    }
+
+    public void setPaid(Boolean paid) {
+        this.paid = paid;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and
     // setters here, do not remove
 
