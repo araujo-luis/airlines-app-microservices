@@ -2,6 +2,8 @@ package uv.airlines.app.web.rest;
 
 import uv.airlines.app.service.ReservationPassengersService;
 import uv.airlines.app.web.rest.errors.BadRequestAlertException;
+import uv.airlines.app.service.dto.PassengersPriorityDTO;
+import uv.airlines.app.service.dto.ProfitFlightsDTO;
 import uv.airlines.app.service.dto.ReservationPassengersDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -113,6 +115,35 @@ public class ReservationPassengersResource {
         log.debug("REST request to get ReservationPassengers : {}", id);
         Optional<ReservationPassengersDTO> reservationPassengersDTO = reservationPassengersService.findOne(id);
         return ResponseUtil.wrapOrNotFound(reservationPassengersDTO);
+    }
+    
+    /**
+     * {@code GET  /reservation-passengers/:id} : get the "id"
+     * reservationPassengers.
+     *
+     * @param id the id of the reservationPassengersDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
+     *         the reservationPassengersDTO, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/reservation-passengers/boarding-priority")
+    public List<PassengersPriorityDTO> getPriorityPassengers() {
+       
+        return reservationPassengersService.findAllPassengersWithPriority();
+    }
+    
+    
+    /**
+     * {@code GET  /reservation-passengers/:id} : get the "id"
+     * reservationPassengers.
+     *
+     * @param id the id of the reservationPassengersDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
+     *         the reservationPassengersDTO, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/reservation-passengers/top10-destinations")
+    public List<ProfitFlightsDTO> getTop10Destinations() {
+       
+        return reservationPassengersService.getTop10ProfitsFlights();
     }
 
     /**

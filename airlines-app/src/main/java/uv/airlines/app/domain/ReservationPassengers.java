@@ -30,8 +30,11 @@ public class ReservationPassengers implements Serializable {
     @Size(max = 6)
     @Column(name = "seat_number", length = 6)
     private String seatNumber;
+    
+    @Column(name = "flight_rate")
+    private float flightRate;
 
-    @ManyToOne
+	@ManyToOne
     @JsonIgnoreProperties("reservationPassengers")
     private Reservations reservationId;
 
@@ -41,6 +44,15 @@ public class ReservationPassengers implements Serializable {
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not
     // remove
+    
+    public float getFlightRate() {
+		return flightRate;
+	}
+
+	public void setFlightRate(float flightRate) {
+		this.flightRate = flightRate;
+	}
+	
     public Long getId() {
         return id;
     }

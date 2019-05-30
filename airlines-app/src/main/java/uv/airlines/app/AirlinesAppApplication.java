@@ -26,7 +26,7 @@ public class AirlinesAppApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		Faker faker = new Faker();
 
-		for (int i = 0; i < 20; i++) {
+		/*for (int i = 0; i < 20; i++) {
 			AirportsDTO airportsDTO = new AirportsDTO();
 			airportsDTO.setContinent(faker.address().countryCode());
 			airportsDTO.setCoordinates(faker.address().longitude() + ", " + faker.address().latitude());
@@ -40,7 +40,7 @@ public class AirlinesAppApplication implements CommandLineRunner {
 			airportsDTO.setType(faker.options().option("plane", "heli"));
 			airportsDTO.setId(faker.bothify("??##"));
 			airportsService.save(airportsDTO);
-		}
+		}*/
 	}
 
 }

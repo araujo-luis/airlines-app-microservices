@@ -21,8 +21,18 @@ public class ReservationPassengersDTO implements Serializable {
     private String seatNumber;
 
     private Long reservationIdId;
+    
+    private float flight_rate;
 
-    private Long passDniId;
+    public float getFlight_rate() {
+		return flight_rate;
+	}
+
+	public void setFlight_rate(float flight_rate) {
+		this.flight_rate = flight_rate;
+	}
+
+	private Long passDniId;
 
     public Long getId() {
         return id;

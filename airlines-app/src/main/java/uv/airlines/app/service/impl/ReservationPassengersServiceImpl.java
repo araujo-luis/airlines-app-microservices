@@ -3,6 +3,8 @@ package uv.airlines.app.service.impl;
 import uv.airlines.app.service.ReservationPassengersService;
 import uv.airlines.app.domain.ReservationPassengers;
 import uv.airlines.app.repository.ReservationPassengersRepository;
+import uv.airlines.app.service.dto.PassengersPriorityDTO;
+import uv.airlines.app.service.dto.ProfitFlightsDTO;
 import uv.airlines.app.service.dto.ReservationPassengersDTO;
 import uv.airlines.app.service.mapper.ReservationPassengersMapper;
 import org.slf4j.Logger;
@@ -85,4 +87,14 @@ public class ReservationPassengersServiceImpl implements ReservationPassengersSe
         log.debug("Request to delete ReservationPassengers : {}", id);
         reservationPassengersRepository.deleteById(id);
     }
+
+	@Override
+	public List<PassengersPriorityDTO> findAllPassengersWithPriority() {
+		return reservationPassengersRepository.getPassengerPriority(2);
+	}
+
+	@Override
+	public List<ProfitFlightsDTO> getTop10ProfitsFlights() {
+		return reservationPassengersRepository.getTop10ProfitsFlights();
+	}
 }
