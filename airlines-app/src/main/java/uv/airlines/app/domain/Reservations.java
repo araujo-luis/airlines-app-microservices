@@ -1,17 +1,13 @@
 package uv.airlines.app.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
 import java.io.Serializable;
-import java.time.Instant;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Objects;
 
 /**
  * A Reservations.
@@ -28,7 +24,8 @@ public class Reservations implements Serializable {
     private Long id;
 
     @Column(name = "reservation_date")
-    private Instant reservationDate;
+    @Temporal(TemporalType.DATE)
+    private Date reservationDate;
 
     @OneToMany(mappedBy = "reservationId")
     private Set<ReservationPassengers> reservationPassengers = new HashSet<>();
@@ -51,16 +48,16 @@ public class Reservations implements Serializable {
         this.id = id;
     }
 
-    public Instant getReservationDate() {
+    public Date getReservationDate() {
         return reservationDate;
     }
 
-    public Reservations reservationDate(Instant reservationDate) {
+    public Reservations reservationDate(Date reservationDate) {
         this.reservationDate = reservationDate;
         return this;
     }
 
-    public void setReservationDate(Instant reservationDate) {
+    public void setReservationDate(Date reservationDate) {
         this.reservationDate = reservationDate;
     }
 

@@ -1,9 +1,7 @@
 package uv.airlines.app.service;
 
-import uv.airlines.app.domain.FlightSchedule;
 import uv.airlines.app.service.dto.FlightScheduleDTO;
 
-import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,24 +39,20 @@ public interface FlightScheduleService {
      * @param id the id of the entity.
      */
     void delete(Long id);
-    
+
     /**
      * Get the "AirportTakeOff" flightSchedule.
      *
      * @param id the id of the entity.
      */
-    List<FlightScheduleDTO> findFlights(String airportTakeoff, 
-    		String airportArrival, 
-    		Long takeoffDate, 
-    		Long takeoffDate2);
-    
+    List<FlightScheduleDTO> findFlights(String airportTakeoff, String airportArrival, Long takeoffDate,
+            Long takeoffDate2);
+
     /**
      * Get the "AirportTakeOff" flightSchedule.
      *
      * @param id the id of the entity.
      */
-    List<FlightScheduleDTO> findOptionalFlights(String airportTakeoff, 
-    		String airportArrival, 
-    		Long takeoffDate, 
-    		Long takeoffDate2);
+    List<FlightScheduleDTO> findOptionalFlights(String airportTakeoff, String airportArrival, Long takeoffDate,
+            Long takeoffDate2);
 }

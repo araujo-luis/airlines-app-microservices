@@ -1,7 +1,7 @@
 package uv.airlines.app.service.dto;
 
-import java.time.Instant;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -13,7 +13,7 @@ public class ReservationsDTO implements Serializable {
 
     private Long id;
 
-    private Instant reservationDate;
+    private Date reservationDate;
 
     private Long agenciesAgencyIdId;
 
@@ -27,11 +27,11 @@ public class ReservationsDTO implements Serializable {
         this.id = id;
     }
 
-    public Instant getReservationDate() {
+    public Date getReservationDate() {
         return reservationDate;
     }
 
-    public void setReservationDate(Instant reservationDate) {
+    public void setReservationDate(Date reservationDate) {
         this.reservationDate = reservationDate;
     }
 

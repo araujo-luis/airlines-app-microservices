@@ -1,17 +1,11 @@
 package uv.airlines.app.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
 import java.io.Serializable;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.Objects;
 
 /**
  * A FlightSchedule.
@@ -26,10 +20,10 @@ public class FlightSchedule implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @Column(name = "takeoff_date")
     private LocalDateTime takeoffDate;
-    
+
     @Column(name = "arrival_date")
     private LocalDateTime arrivalDate;
 
@@ -41,22 +35,22 @@ public class FlightSchedule implements Serializable {
     private Aircrafts aircraftId;
 
     public FlightSchedule() {
-		super();
-	}
+        super();
+    }
 
-	public FlightSchedule(Long id, LocalDateTime takeoffDate, LocalDateTime  arrivalDate, Float flightRate, Aircrafts aircraftId,
-			Airports airportTakeoff, Airports airportArrival) {
-		super();
-		this.id = id;
-		this.takeoffDate = takeoffDate;
-		this.arrivalDate = arrivalDate;
-		this.flightRate = flightRate;
-		this.aircraftId = aircraftId;
-		this.airportTakeoff = airportTakeoff;
-		this.airportArrival = airportArrival;
-	}
+    public FlightSchedule(Long id, LocalDateTime takeoffDate, LocalDateTime arrivalDate, Float flightRate,
+            Aircrafts aircraftId, Airports airportTakeoff, Airports airportArrival) {
+        super();
+        this.id = id;
+        this.takeoffDate = takeoffDate;
+        this.arrivalDate = arrivalDate;
+        this.flightRate = flightRate;
+        this.aircraftId = aircraftId;
+        this.airportTakeoff = airportTakeoff;
+        this.airportArrival = airportArrival;
+    }
 
-	@ManyToOne
+    @ManyToOne
     @JsonIgnoreProperties("airportTakeoff")
     private Airports airportTakeoff;
 
@@ -74,29 +68,29 @@ public class FlightSchedule implements Serializable {
         this.id = id;
     }
 
-    public LocalDateTime  getTakeoffDate() {
+    public LocalDateTime getTakeoffDate() {
         return takeoffDate;
     }
 
-    public FlightSchedule takeoffDate(LocalDateTime  takeoffDate) {
+    public FlightSchedule takeoffDate(LocalDateTime takeoffDate) {
         this.takeoffDate = takeoffDate;
         return this;
     }
 
-    public void setTakeoffDate(LocalDateTime  takeoffDate) {
+    public void setTakeoffDate(LocalDateTime takeoffDate) {
         this.takeoffDate = takeoffDate;
     }
 
-    public LocalDateTime  getArrivalDate() {
+    public LocalDateTime getArrivalDate() {
         return arrivalDate;
     }
 
-    public FlightSchedule arrivalDate(LocalDateTime  arrivalDate) {
+    public FlightSchedule arrivalDate(LocalDateTime arrivalDate) {
         this.arrivalDate = arrivalDate;
         return this;
     }
 
-    public void setArrivalDate(LocalDateTime  arrivalDate) {
+    public void setArrivalDate(LocalDateTime arrivalDate) {
         this.arrivalDate = arrivalDate;
     }
 

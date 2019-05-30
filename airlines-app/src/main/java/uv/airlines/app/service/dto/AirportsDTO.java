@@ -11,7 +11,7 @@ public class AirportsDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    private String id;
 
     @Size(max = 5)
     private String type;
@@ -42,11 +42,11 @@ public class AirportsDTO implements Serializable {
     @Size(max = 300)
     private String coordinates;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

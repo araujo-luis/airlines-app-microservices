@@ -1,7 +1,5 @@
 package uv.airlines.app.service.dto;
 
-import java.time.Instant;
-import java.time.LocalDate;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -15,9 +13,9 @@ public class FlightScheduleDTO implements Serializable {
 
     private Long id;
 
-    private Date  takeoffDate;
+    private Date takeoffDate;
 
-    private Date  arrivalDate;
+    private Date arrivalDate;
 
     private Float flightRate;
 
@@ -35,19 +33,19 @@ public class FlightScheduleDTO implements Serializable {
         this.id = id;
     }
 
-    public Date  getTakeoffDate() {
+    public Date getTakeoffDate() {
         return takeoffDate;
     }
 
-    public void setTakeoffDate(Date  takeoffDate) {
+    public void setTakeoffDate(Date takeoffDate) {
         this.takeoffDate = takeoffDate;
     }
 
-    public Date  getArrivalDate() {
+    public Date getArrivalDate() {
         return arrivalDate;
     }
 
-    public void setArrivalDate(Date  arrivalDate) {
+    public void setArrivalDate(Date arrivalDate) {
         this.arrivalDate = arrivalDate;
     }
 

@@ -1,14 +1,11 @@
 package uv.airlines.app.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Objects;
 
 /**
  * A Airports.
@@ -21,7 +18,7 @@ public class Airports implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(length=5)
+    @Column(length = 5)
     private String id;
 
     @Size(max = 5)
@@ -167,31 +164,31 @@ public class Airports implements Serializable {
     }
 
     public Airports() {
-		super();
-	}
+        super();
+    }
 
-	public Airports(String id, @Size(max = 5) String type, @Size(max = 45) String name, Integer elevation,
-			@Size(max = 4) String continent, @Size(max = 4) String country, @Size(max = 10) String region,
-			@Size(max = 200) String munipality, @Size(max = 10) String gpscode, @Size(max = 10) String localcode,
-			@Size(max = 300) String coordinates, Set<FlightSchedule> airportTakeoff,
-			Set<FlightSchedule> airportArrival) {
-		super();
-		this.id = id;
-		this.type = type;
-		this.name = name;
-		this.elevation = elevation;
-		this.continent = continent;
-		this.country = country;
-		this.region = region;
-		this.munipality = munipality;
-		this.gpscode = gpscode;
-		this.localcode = localcode;
-		this.coordinates = coordinates;
-		this.airportTakeoff = airportTakeoff;
-		this.airportArrival = airportArrival;
-	}
+    public Airports(String id, @Size(max = 5) String type, @Size(max = 45) String name, Integer elevation,
+            @Size(max = 4) String continent, @Size(max = 4) String country, @Size(max = 10) String region,
+            @Size(max = 200) String munipality, @Size(max = 10) String gpscode, @Size(max = 10) String localcode,
+            @Size(max = 300) String coordinates, Set<FlightSchedule> airportTakeoff,
+            Set<FlightSchedule> airportArrival) {
+        super();
+        this.id = id;
+        this.type = type;
+        this.name = name;
+        this.elevation = elevation;
+        this.continent = continent;
+        this.country = country;
+        this.region = region;
+        this.munipality = munipality;
+        this.gpscode = gpscode;
+        this.localcode = localcode;
+        this.coordinates = coordinates;
+        this.airportTakeoff = airportTakeoff;
+        this.airportArrival = airportArrival;
+    }
 
-	public void setMunipality(String munipality) {
+    public void setMunipality(String munipality) {
         this.munipality = munipality;
     }
 
