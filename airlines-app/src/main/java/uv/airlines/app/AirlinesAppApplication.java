@@ -1,7 +1,6 @@
 package uv.airlines.app;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import com.github.javafaker.Faker;
@@ -56,7 +55,7 @@ public class AirlinesAppApplication implements CommandLineRunner {
 		// generateScheduleFlight(20);
 		// generatePassenger(20);
 		// generateAgencies(10);
-		generateReservation(1);
+		// generateReservation(1);
 
 	}
 
@@ -99,7 +98,7 @@ public class AirlinesAppApplication implements CommandLineRunner {
 
 		for (int i = 0; i < quantity; i++) {
 			FlightScheduleDTO flightScheduleDTO = new FlightScheduleDTO();
-			flightScheduleDTO.setAircraftIdId(Long.valueOf(faker.number().numberBetween(2, 23)));
+			flightScheduleDTO.setAircraftId(Long.valueOf(faker.number().numberBetween(2, 23)));
 			flightScheduleDTO
 					.setAirportArrivalId(faker.options().option("aw82", "fy19", "fz92", "jw93", "bx38", "aw82"));
 			flightScheduleDTO

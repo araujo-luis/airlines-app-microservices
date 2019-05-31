@@ -61,13 +61,13 @@ public class Agencies implements Serializable {
 
     public Agencies addReservations(Reservations reservations) {
         this.reservations.add(reservations);
-        reservations.setAgenciesAgencyId(this);
+        reservations.setAgencies(this);
         return this;
     }
 
     public Agencies removeReservations(Reservations reservations) {
         this.reservations.remove(reservations);
-        reservations.setAgenciesAgencyId(null);
+        reservations.setAgencies(null);
         return this;
     }
 

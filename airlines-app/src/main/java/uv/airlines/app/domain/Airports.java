@@ -59,10 +59,10 @@ public class Airports implements Serializable {
     @Column(name = "coordinates", length = 300)
     private String coordinates;
 
-    @OneToMany(mappedBy = "airports")
+    @OneToMany(mappedBy = "airportTakeoff")
     private Set<FlightSchedule> airportTakeoff = new HashSet<>();
 
-    @OneToMany(mappedBy = "airports")
+    @OneToMany(mappedBy = "airportArrival")
     private Set<FlightSchedule> airportArrival = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not

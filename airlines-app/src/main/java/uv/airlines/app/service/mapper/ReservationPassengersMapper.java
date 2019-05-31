@@ -13,11 +13,11 @@ import org.mapstruct.*;
 public interface ReservationPassengersMapper extends EntityMapper<ReservationPassengersDTO, ReservationPassengers> {
 
     @Mapping(source = "reservation.id", target = "reservation")
-    @Mapping(source = "passDni.id", target = "passDni")
+    @Mapping(source = "passenger.id", target = "passengerId")
     ReservationPassengersDTO toDto(ReservationPassengers reservationPassengers);
 
     @Mapping(source = "reservation", target = "reservation")
-    @Mapping(source = "passDni", target = "passDni")
+    @Mapping(source = "passengerId", target = "passenger")
     ReservationPassengers toEntity(ReservationPassengersDTO reservationPassengersDTO);
 
     default ReservationPassengers fromId(Long id) {

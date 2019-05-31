@@ -112,16 +112,16 @@ public class FlightSchedule implements Serializable {
         this.flightRate = flightRate;
     }
 
-    public Aircrafts getAircraftId() {
+    public Aircrafts getAircraft() {
         return aircraft;
     }
 
-    public FlightSchedule aircraftId(Aircrafts aircrafts) {
+    public FlightSchedule aircraft(Aircrafts aircrafts) {
         this.aircraft = aircrafts;
         return this;
     }
 
-    public void setAircraftId(Aircrafts aircrafts) {
+    public void setAircraft(Aircrafts aircrafts) {
         this.aircraft = aircrafts;
     }
 

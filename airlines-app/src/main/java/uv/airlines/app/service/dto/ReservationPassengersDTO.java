@@ -22,7 +22,7 @@ public class ReservationPassengersDTO implements Serializable {
 
     private Long reservation;
 
-    private Long passDni;
+    private Long passengerId;
 
     private Double price;
 
@@ -68,12 +68,12 @@ public class ReservationPassengersDTO implements Serializable {
         this.reservation = reservationsId;
     }
 
-    public Long getPassDni() {
-        return passDni;
+    public Long getPassengerId() {
+        return passengerId;
     }
 
-    public void setPassDni(Long passenger) {
-        this.passDni = passenger;
+    public void setPassengerId(Long passenger) {
+        this.passengerId = passenger;
     }
 
     @Override
@@ -101,7 +101,7 @@ public class ReservationPassengersDTO implements Serializable {
     public String toString() {
         return "ReservationPassengersDTO{" + "id=" + getId() + ", luggagesQuanity=" + getLuggagesQuanity()
                 + ", priority=" + getPriority() + ", seatNumber='" + getSeatNumber() + "'" + ", reservationId="
-                + getReservation() + ", passDni=" + getPassDniId() + "}";
+                + getReservation() + ", passDni=" + getPassengerId() + "}";
     }
 
     public Double getPrice() {

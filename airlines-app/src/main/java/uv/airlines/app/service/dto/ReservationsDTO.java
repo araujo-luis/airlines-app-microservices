@@ -17,7 +17,7 @@ public class ReservationsDTO implements Serializable {
 
     private Long agenciesId;
 
-    private Long FlightScheduleId;
+    private Long flightScheduleId;
 
     public Long getId() {
         return id;
@@ -35,7 +35,7 @@ public class ReservationsDTO implements Serializable {
         this.reservationDate = reservationDate;
     }
 
-    public void setAgenciesAgencyId(Long agenciesId) {
+    public void setAgenciesId(Long agenciesId) {
         this.agenciesId = agenciesId;
     }
 
@@ -44,11 +44,11 @@ public class ReservationsDTO implements Serializable {
     }
 
     public Long getFlightScheduleId() {
-        return FlightScheduleId;
+        return flightScheduleId;
     }
 
     public void setFlightScheduleId(Long flightScheduleId) {
-        FlightScheduleId = flightScheduleId;
+        this.flightScheduleId = flightScheduleId;
     }
 
     @Override

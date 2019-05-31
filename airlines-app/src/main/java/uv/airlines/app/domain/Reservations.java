@@ -27,7 +27,7 @@ public class Reservations implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date reservationDate;
 
-    @OneToMany(mappedBy = "resevartions")
+    @OneToMany(mappedBy = "reservation")
     private Set<ReservationPassengers> reservationPassengers = new HashSet<>();
 
     @ManyToOne
@@ -90,16 +90,16 @@ public class Reservations implements Serializable {
         return agencies;
     }
 
-    public Reservations agenciesAgencyId(Agencies agencies) {
+    public Reservations agencies(Agencies agencies) {
         this.agencies = agencies;
         return this;
     }
 
-    public void setAgenciesAgencyId(Agencies agencies) {
+    public void setAgencies(Agencies agencies) {
         this.agencies = agencies;
     }
 
-    public FlightSchedule getFlightScheduleId() {
+    public FlightSchedule getFlightSchedule() {
         return flightSchedule;
     }
 

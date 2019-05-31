@@ -25,7 +25,7 @@ public class FlightScheduleDTO implements Serializable {
 
     private Float flightRate;
 
-    private Long aircraftIdId;
+    private Long aircraftId;
 
     private String airportTakeoffId;
 
@@ -63,12 +63,12 @@ public class FlightScheduleDTO implements Serializable {
         this.flightRate = flightRate;
     }
 
-    public Long getAircraftIdId() {
-        return aircraftIdId;
+    public Long getAircraftId() {
+        return aircraftId;
     }
 
-    public void setAircraftIdId(Long aircraftsId) {
-        this.aircraftIdId = aircraftsId;
+    public void setAircraftId(Long aircraftsId) {
+        this.aircraftId = aircraftsId;
     }
 
     public String getAirportTakeoffId() {
@@ -111,7 +111,7 @@ public class FlightScheduleDTO implements Serializable {
     @Override
     public String toString() {
         return "FlightScheduleDTO{" + "id=" + getId() + ", takeoffDate='" + getTakeoffDate() + "'" + ", arrivalDate='"
-                + getArrivalDate() + "'" + ", flightRate=" + getFlightRate() + ", aircraftId=" + getAircraftIdId()
+                + getArrivalDate() + "'" + ", flightRate=" + getFlightRate() + ", aircraftId=" + getAircraftId()
                 + ", airportTakeoff=" + getAirportTakeoffId() + ", airportArrival=" + getAirportArrivalId() + "}";
     }
 }

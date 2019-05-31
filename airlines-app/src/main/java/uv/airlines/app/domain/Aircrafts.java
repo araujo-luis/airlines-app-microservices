@@ -77,13 +77,13 @@ public class Aircrafts implements Serializable {
 
     public Aircrafts addFlightSchedule(FlightSchedule flightSchedule) {
         this.flightSchedules.add(flightSchedule);
-        flightSchedule.setAircraftId(this);
+        flightSchedule.setAircraft(this);
         return this;
     }
 
     public Aircrafts removeFlightSchedule(FlightSchedule flightSchedule) {
         this.flightSchedules.remove(flightSchedule);
-        flightSchedule.setAircraftId(null);
+        flightSchedule.setAircraft(null);
         return this;
     }
 

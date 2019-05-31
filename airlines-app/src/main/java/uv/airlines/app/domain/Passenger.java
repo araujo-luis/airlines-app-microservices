@@ -78,13 +78,13 @@ public class Passenger implements Serializable {
 
     public Passenger addReservationPassengers(ReservationPassengers reservationPassengers) {
         this.reservationPassengers.add(reservationPassengers);
-        reservationPassengers.setPassDni(this);
+        reservationPassengers.setPassenger(this);
         return this;
     }
 
     public Passenger removeReservationPassengers(ReservationPassengers reservationPassengers) {
         this.reservationPassengers.remove(reservationPassengers);
-        reservationPassengers.setPassDni(null);
+        reservationPassengers.setPassenger(null);
         return this;
     }
 
