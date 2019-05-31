@@ -1,5 +1,8 @@
 package uv.airlines.app.service;
 
+import uv.airlines.app.service.dto.MonthlyProfitsDTO;
+import uv.airlines.app.service.dto.PassengersPriorityDTO;
+import uv.airlines.app.service.dto.ProfitFlightsDTO;
 import uv.airlines.app.service.dto.ReservationPassengersDTO;
 
 import java.util.List;
@@ -25,6 +28,28 @@ public interface ReservationPassengersService {
      * @return the list of entities.
      */
     List<ReservationPassengersDTO> findAll();
+    
+    /**
+     * Get all the Passengers who have bought tickets with priority more than a parameter.
+     *
+     * @return the list of entities.
+     */
+    List<PassengersPriorityDTO> findAllPassengersWithPriority();
+    
+    /**
+     * Get all the Passengers who have bought tickets with priority more than a parameter.
+     *
+     * @return the list of entities.
+     */
+    List<MonthlyProfitsDTO> getMonthlyProfits();
+    
+    /**
+     * Get Top 10 destinations profitable
+     *
+     * @return the list of entities.
+     */
+    List<ProfitFlightsDTO> getTop10ProfitsFlights();
+    
 
     /**
      * Get the "id" reservationPassengers.
