@@ -12,12 +12,12 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = { AircraftsMapper.class, AirportsMapper.class })
 public interface FlightScheduleMapper extends EntityMapper<FlightScheduleDTO, FlightSchedule> {
 
-    @Mapping(source = "aircraftId.id", target = "aircraftIdId")
+    @Mapping(source = "aircraft.id", target = "aircraftId")
     @Mapping(source = "airportTakeoff.id", target = "airportTakeoffId")
     @Mapping(source = "airportArrival.id", target = "airportArrivalId")
     FlightScheduleDTO toDto(FlightSchedule flightSchedule);
 
-    @Mapping(source = "aircraftIdId", target = "aircraftId")
+    @Mapping(source = "aircraftId", target = "aircraft")
     @Mapping(source = "airportTakeoffId", target = "airportTakeoff")
     @Mapping(source = "airportArrivalId", target = "airportArrival")
     FlightSchedule toEntity(FlightScheduleDTO flightScheduleDTO);

@@ -12,7 +12,6 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "airports")
-
 public class Airports implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -60,10 +59,10 @@ public class Airports implements Serializable {
     @Column(name = "coordinates", length = 300)
     private String coordinates;
 
-    @OneToMany(mappedBy = "airportTakeoff")
+    @OneToMany(mappedBy = "airports")
     private Set<FlightSchedule> airportTakeoff = new HashSet<>();
 
-    @OneToMany(mappedBy = "airportArrival")
+    @OneToMany(mappedBy = "airports")
     private Set<FlightSchedule> airportArrival = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not

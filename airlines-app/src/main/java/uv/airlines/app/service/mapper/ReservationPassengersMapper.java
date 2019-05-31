@@ -1,6 +1,6 @@
 package uv.airlines.app.service.mapper;
 
-import uv.airlines.app.domain.*;
+import uv.airlines.app.domain.ReservationPassengers;
 import uv.airlines.app.service.dto.ReservationPassengersDTO;
 
 import org.mapstruct.*;
@@ -12,12 +12,12 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = { ReservationsMapper.class, PassengerMapper.class })
 public interface ReservationPassengersMapper extends EntityMapper<ReservationPassengersDTO, ReservationPassengers> {
 
-    @Mapping(source = "reservationId.id", target = "reservationIdId")
-    @Mapping(source = "passDni.id", target = "passDniId")
+    @Mapping(source = "reservation.id", target = "reservation")
+    @Mapping(source = "passDni.id", target = "passDni")
     ReservationPassengersDTO toDto(ReservationPassengers reservationPassengers);
 
-    @Mapping(source = "reservationIdId", target = "reservationId")
-    @Mapping(source = "passDniId", target = "passDni")
+    @Mapping(source = "reservation", target = "reservation")
+    @Mapping(source = "passDni", target = "passDni")
     ReservationPassengers toEntity(ReservationPassengersDTO reservationPassengersDTO);
 
     default ReservationPassengers fromId(Long id) {

@@ -12,7 +12,6 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "agencies")
-
 public class Agencies implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -25,7 +24,7 @@ public class Agencies implements Serializable {
     @Column(name = "name", length = 45)
     private String name;
 
-    @OneToMany(mappedBy = "agenciesAgencyId")
+    @OneToMany(mappedBy = "agencies")
     private Set<Reservations> reservations = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not

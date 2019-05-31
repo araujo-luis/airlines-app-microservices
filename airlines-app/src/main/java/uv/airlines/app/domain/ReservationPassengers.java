@@ -38,11 +38,11 @@ public class ReservationPassengers implements Serializable {
     private String seatNumber;
 
     @ManyToOne
-    @JsonIgnoreProperties("reservationPassengers")
-    private Reservations reservationId;
+    @JsonIgnoreProperties("reservations")
+    private Reservations reservation;
 
     @ManyToOne
-    @JsonIgnoreProperties("reservationPassengers")
+    @JsonIgnoreProperties("passDni")
     private Passenger passDni;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not
@@ -94,17 +94,17 @@ public class ReservationPassengers implements Serializable {
         this.seatNumber = seatNumber;
     }
 
-    public Reservations getReservationId() {
-        return reservationId;
+    public Reservations getReservation() {
+        return reservation;
     }
 
     public ReservationPassengers reservationId(Reservations reservations) {
-        this.reservationId = reservations;
+        this.reservation = reservations;
         return this;
     }
 
-    public void setReservationId(Reservations reservations) {
-        this.reservationId = reservations;
+    public void setReservation(Reservations reservations) {
+        this.reservation = reservations;
     }
 
     public Passenger getPassDni() {

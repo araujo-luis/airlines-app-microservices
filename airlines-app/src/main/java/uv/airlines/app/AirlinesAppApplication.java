@@ -1,5 +1,7 @@
 package uv.airlines.app;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import com.github.javafaker.Faker;
@@ -9,7 +11,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import uv.airlines.app.domain.Reservations;
 import uv.airlines.app.service.AgenciesService;
 import uv.airlines.app.service.AircraftsService;
 import uv.airlines.app.service.AirportsService;
@@ -55,6 +56,7 @@ public class AirlinesAppApplication implements CommandLineRunner {
 		// generateScheduleFlight(20);
 		// generatePassenger(20);
 		// generateAgencies(10);
+		generateReservation(1);
 
 	}
 
@@ -132,7 +134,11 @@ public class AirlinesAppApplication implements CommandLineRunner {
 	}
 
 	public void generateReservation(int quantity) {
-
+		ReservationsDTO reservationsDTO = new ReservationsDTO();
+		// reservationsDTO.setAgenciesAgencyIdId(new Long(1));
+		// reservationsDTO.setAirportsAirportIdId(new Long(82));
+		reservationsDTO.setReservationDate(Calendar.getInstance().getTime());
+		reservationsService.save(reservationsDTO);
 	}
 
 }

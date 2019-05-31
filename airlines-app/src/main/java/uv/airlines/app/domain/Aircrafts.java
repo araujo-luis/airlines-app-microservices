@@ -27,7 +27,7 @@ public class Aircrafts implements Serializable {
     @Column(name = "capacity")
     private Integer capacity;
 
-    @OneToMany(mappedBy = "aircraftId")
+    @OneToMany(mappedBy = "aircraft")
     private Set<FlightSchedule> flightSchedules = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not
