@@ -2,6 +2,7 @@ package uv.airlines.app.web.rest;
 
 import uv.airlines.app.service.ReservationPassengersService;
 import uv.airlines.app.web.rest.errors.BadRequestAlertException;
+import uv.airlines.app.service.dto.MonthlyProfitsDTO;
 import uv.airlines.app.service.dto.PassengersPriorityDTO;
 import uv.airlines.app.service.dto.ProfitFlightsDTO;
 import uv.airlines.app.service.dto.ReservationPassengersDTO;
@@ -140,10 +141,23 @@ public class ReservationPassengersResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
      *         the reservationPassengersDTO, or with status {@code 404 (Not Found)}.
      */
-    @GetMapping("/reservation-passengers/top10-destinations")
+    @GetMapping("/reservation-passengers/top-destinations")
     public List<ProfitFlightsDTO> getTop10Destinations() {
        
         return reservationPassengersService.getTop10ProfitsFlights();
+    }
+    
+    /**
+     * {@code GET  /reservation-passengers/:id} : get the "id"
+     * reservationPassengers.
+     *
+     * @param id the id of the reservationPassengersDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
+     *         the reservationPassengersDTO, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/reservation-passengers/monthly-profits")
+    public List<MonthlyProfitsDTO> getMonthlyProfits() {
+        return reservationPassengersService.getMonthlyProfits();
     }
 
     /**

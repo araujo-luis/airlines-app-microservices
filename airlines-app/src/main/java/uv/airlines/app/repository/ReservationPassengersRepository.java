@@ -1,12 +1,17 @@
 package uv.airlines.app.repository;
 
 import uv.airlines.app.domain.ReservationPassengers;
+import uv.airlines.app.service.dto.MonthlyProfitsDTO;
 import uv.airlines.app.service.dto.PassengersPriorityDTO;
 import uv.airlines.app.service.dto.ProfitFlightsDTO;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -30,7 +35,18 @@ public interface ReservationPassengersRepository extends JpaRepository<Reservati
 			"FROM ReservationPassengers RP " + 
 			"INNER JOIN RP.reservationId R " + 
 			"INNER JOIN R.flightScheduleId FS " +  
-			"INNER JOIN FS.airportArrival A " + 
-			"GROUP BY FS.airportArrival")
-	public List<ProfitFlightsDTO> getTop10ProfitsFlights();
+			"INNER JOIN FS.airportArrival A " +
+			"WHERE R.reservationDate BETWEEN :start AND :end " + 
+			"GROUP BY FS.airportArrival " +
+			"ORDER BY SUM(RP.flightRate) DESC")
+	public List<ProfitFlightsDTO> findTop10ProfitsFlights(Pageable pageable, @Param("start") Date startDate, @Param("end") Date  endDate);
+	
+	//Q8
+	@Query("SELECT new uv.airlines.app.service.dto.MonthlyProfitsDTO(YEAR(R.reservationDate), MONTH(R.reservationDate), sum(RP.flightRate)) " + 
+			"FROM ReservationPassengers RP " +
+			"INNER JOIN RP.reservationId R " + 
+			"GROUP BY YEAR(R.reservationDate), MONTH(R.reservationDate) " +
+			"ORDER BY YEAR(R.reservationDate), MONTH(R.reservationDate) DESC")
+	public List<MonthlyProfitsDTO> getMonthlyProfits(Pageable pageable);
+
 }
