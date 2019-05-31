@@ -14,7 +14,7 @@ public interface PassengerMapper extends EntityMapper<PassengerDTO, Passenger> {
     @Mapping(target = "reservationPassengers", ignore = true)
     Passenger toEntity(PassengerDTO passengerDTO);
 
-    default Passenger fromId(Long id) {
+    default Passenger fromId(String id) {
         if (id == null) {
             return null;
         }

@@ -27,8 +27,8 @@ public class ReservationPassengers implements Serializable {
     @Column(name = "priority")
     private Boolean priority;
 
-    @Column(name = "price")
-    private Double price;
+    @Column(name = "flight_rate")
+    private Double flightRate;
 
     @Column(name = "paid")
     private Boolean paid;
@@ -37,9 +37,6 @@ public class ReservationPassengers implements Serializable {
     @Column(name = "seat_number", length = 6)
     private String seatNumber;
     
-    @Column(name = "flight_rate")
-    private float flightRate;
-
     @ManyToOne
     @JsonIgnoreProperties("reservation")
     private Reservations reservation;
@@ -51,11 +48,11 @@ public class ReservationPassengers implements Serializable {
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not
     // remove
     
-    public float getFlightRate() {
+    public Double getFlightRate() {
 		return flightRate;
 	}
 
-	public void setFlightRate(float flightRate) {
+	public void setFlightRate(Double flightRate) {
 		this.flightRate = flightRate;
 	}
 	
@@ -132,13 +129,6 @@ public class ReservationPassengers implements Serializable {
         this.passenger = passenger;
     }
 
-    public Double getPrice() {
-        return this.price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
 
     public Boolean isPaid() {
         return this.paid;
