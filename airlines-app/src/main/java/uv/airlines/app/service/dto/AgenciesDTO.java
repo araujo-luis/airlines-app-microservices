@@ -16,12 +16,6 @@ public class AgenciesDTO implements Serializable {
     @Size(max = 45)
     private String name;
 
-    @Size(max = 45)
-    private String user;
-
-    @Size(max = 45)
-    private String password;
-
     public Long getId() {
         return id;
     }
@@ -36,22 +30,6 @@ public class AgenciesDTO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     @Override
@@ -77,7 +55,6 @@ public class AgenciesDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "AgenciesDTO{" + "id=" + getId() + ", name='" + getName() + "'" + ", user='" + getUser() + "'"
-                + ", password='" + getPassword() + "'" + "}";
+        return "AgenciesDTO{" + "id=" + getId() + ", name='" + getName() + "'" + "'" + "}";
     }
 }

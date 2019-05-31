@@ -15,9 +15,9 @@ public class ReservationsDTO implements Serializable {
 
     private Date reservationDate;
 
-    private Long agenciesAgencyIdId;
+    private Long agenciesId;
 
-    private Long airportsAirportIdId;
+    private Long flightScheduleId;
 
     public Long getId() {
         return id;
@@ -35,20 +35,20 @@ public class ReservationsDTO implements Serializable {
         this.reservationDate = reservationDate;
     }
 
-    public Long getAgenciesAgencyIdId() {
-        return agenciesAgencyIdId;
+    public void setAgenciesId(Long agenciesId) {
+        this.agenciesId = agenciesId;
     }
 
-    public void setAgenciesAgencyIdId(Long agenciesId) {
-        this.agenciesAgencyIdId = agenciesId;
+    public Long getAgenciesId() {
+        return agenciesId;
     }
 
-    public Long getAirportsAirportIdId() {
-        return airportsAirportIdId;
+    public Long getFlightScheduleId() {
+        return flightScheduleId;
     }
 
-    public void setAirportsAirportIdId(Long airportsId) {
-        this.airportsAirportIdId = airportsId;
+    public void setFlightScheduleId(Long flightScheduleId) {
+        this.flightScheduleId = flightScheduleId;
     }
 
     @Override
@@ -75,7 +75,7 @@ public class ReservationsDTO implements Serializable {
     @Override
     public String toString() {
         return "ReservationsDTO{" + "id=" + getId() + ", reservationDate='" + getReservationDate() + "'"
-                + ", agenciesAgencyId=" + getAgenciesAgencyIdId() + ", airportsAirportId=" + getAirportsAirportIdId()
-                + "}";
+                + ", agenciesAgencyId=" + getAgenciesId() + ", airportsAirportId=" + getFlightScheduleId() + "}";
     }
+
 }

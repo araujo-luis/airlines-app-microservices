@@ -1,12 +1,18 @@
 package uv.airlines.app.service.dto;
 
 import javax.validation.constraints.*;
+
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * A DTO for the {@link uv.airlines.app.domain.Aircrafts} entity.
  */
+@AllArgsConstructor
+@NoArgsConstructor
 public class AircraftsDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;

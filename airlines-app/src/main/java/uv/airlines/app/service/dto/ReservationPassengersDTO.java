@@ -15,24 +15,18 @@ public class ReservationPassengersDTO implements Serializable {
 
     private Integer luggagesQuanity;
 
-    private Integer priority;
+    private Boolean priority;
 
     @Size(max = 6)
     private String seatNumber;
 
-    private Long reservationIdId;
-    
-    private float flight_rate;
+    private Long reservation;
 
-    public float getFlight_rate() {
-		return flight_rate;
-	}
+    private Long passengerId;
 
-	public void setFlight_rate(float flight_rate) {
-		this.flight_rate = flight_rate;
-	}
+    private Double flightRate;
 
-	private Long passDniId;
+    private Boolean paid;
 
     public Long getId() {
         return id;
@@ -50,11 +44,11 @@ public class ReservationPassengersDTO implements Serializable {
         this.luggagesQuanity = luggagesQuanity;
     }
 
-    public Integer getPriority() {
+    public Boolean getPriority() {
         return priority;
     }
 
-    public void setPriority(Integer priority) {
+    public void setPriority(Boolean priority) {
         this.priority = priority;
     }
 
@@ -66,20 +60,20 @@ public class ReservationPassengersDTO implements Serializable {
         this.seatNumber = seatNumber;
     }
 
-    public Long getReservationIdId() {
-        return reservationIdId;
+    public Long getReservation() {
+        return reservation;
     }
 
-    public void setReservationIdId(Long reservationsId) {
-        this.reservationIdId = reservationsId;
+    public void setReservation(Long reservationsId) {
+        this.reservation = reservationsId;
     }
 
-    public Long getPassDniId() {
-        return passDniId;
+    public Long getPassengerId() {
+        return passengerId;
     }
 
-    public void setPassDniId(Long passengerId) {
-        this.passDniId = passengerId;
+    public void setPassengerId(Long passenger) {
+        this.passengerId = passenger;
     }
 
     @Override
@@ -107,6 +101,22 @@ public class ReservationPassengersDTO implements Serializable {
     public String toString() {
         return "ReservationPassengersDTO{" + "id=" + getId() + ", luggagesQuanity=" + getLuggagesQuanity()
                 + ", priority=" + getPriority() + ", seatNumber='" + getSeatNumber() + "'" + ", reservationId="
-                + getReservationIdId() + ", passDni=" + getPassDniId() + "}";
+                + getReservation() + ", passDni=" + getPassengerId() + "}";
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Boolean getPaid() {
+        return paid;
+    }
+
+    public void setPaid(Boolean paid) {
+        this.paid = paid;
     }
 }

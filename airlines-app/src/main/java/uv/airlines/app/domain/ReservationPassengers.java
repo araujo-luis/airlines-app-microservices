@@ -25,7 +25,13 @@ public class ReservationPassengers implements Serializable {
     private Integer luggagesQuanity;
 
     @Column(name = "priority")
-    private Integer priority;
+    private Boolean priority;
+
+    @Column(name = "price")
+    private Double price;
+
+    @Column(name = "paid")
+    private Boolean paid;
 
     @Size(max = 6)
     @Column(name = "seat_number", length = 6)
@@ -34,13 +40,13 @@ public class ReservationPassengers implements Serializable {
     @Column(name = "flight_rate")
     private float flightRate;
 
-	@ManyToOne
-    @JsonIgnoreProperties("reservationPassengers")
-    private Reservations reservationId;
+    @ManyToOne
+    @JsonIgnoreProperties("reservation")
+    private Reservations reservation;
 
     @ManyToOne
-    @JsonIgnoreProperties("reservationPassengers")
-    private Passenger passDni;
+    @JsonIgnoreProperties("passenger")
+    private Passenger passenger;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not
     // remove
@@ -74,16 +80,16 @@ public class ReservationPassengers implements Serializable {
         this.luggagesQuanity = luggagesQuanity;
     }
 
-    public Integer getPriority() {
+    public Boolean getPriority() {
         return priority;
     }
 
-    public ReservationPassengers priority(Integer priority) {
+    public ReservationPassengers priority(Boolean priority) {
         this.priority = priority;
         return this;
     }
 
-    public void setPriority(Integer priority) {
+    public void setPriority(Boolean priority) {
         this.priority = priority;
     }
 
@@ -100,31 +106,52 @@ public class ReservationPassengers implements Serializable {
         this.seatNumber = seatNumber;
     }
 
-    public Reservations getReservationId() {
-        return reservationId;
+    public Reservations getReservation() {
+        return reservation;
     }
 
     public ReservationPassengers reservationId(Reservations reservations) {
-        this.reservationId = reservations;
+        this.reservation = reservations;
         return this;
     }
 
-    public void setReservationId(Reservations reservations) {
-        this.reservationId = reservations;
+    public void setReservation(Reservations reservations) {
+        this.reservation = reservations;
     }
 
-    public Passenger getPassDni() {
-        return passDni;
+    public Passenger getPassenger() {
+        return passenger;
     }
 
-    public ReservationPassengers passDni(Passenger passenger) {
-        this.passDni = passenger;
+    public ReservationPassengers passenger(Passenger passenger) {
+        this.passenger = passenger;
         return this;
     }
 
-    public void setPassDni(Passenger passenger) {
-        this.passDni = passenger;
+    public void setPassenger(Passenger passenger) {
+        this.passenger = passenger;
     }
+
+    public Double getPrice() {
+        return this.price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Boolean isPaid() {
+        return this.paid;
+    }
+
+    public Boolean getPaid() {
+        return this.paid;
+    }
+
+    public void setPaid(Boolean paid) {
+        this.paid = paid;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and
     // setters here, do not remove
 

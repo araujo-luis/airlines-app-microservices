@@ -27,16 +27,16 @@ public class Reservations implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date reservationDate;
 
-    @OneToMany(mappedBy = "reservationId")
+    @OneToMany(mappedBy = "reservation")
     private Set<ReservationPassengers> reservationPassengers = new HashSet<>();
 
     @ManyToOne
-    @JsonIgnoreProperties("reservations")
-    private Agencies agenciesAgencyId;
+    @JsonIgnoreProperties("agencies")
+    private Agencies agencies;
 
     @ManyToOne
-    @JsonIgnoreProperties("reservations")
-    private FlightSchedule flightScheduleId;
+    @JsonIgnoreProperties("flightSchedule")
+    private FlightSchedule flightSchedule;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not
     // remove
@@ -72,13 +72,13 @@ public class Reservations implements Serializable {
 
     public Reservations addReservationPassengers(ReservationPassengers reservationPassengers) {
         this.reservationPassengers.add(reservationPassengers);
-        reservationPassengers.setReservationId(this);
+        reservationPassengers.setReservation(this);
         return this;
     }
 
     public Reservations removeReservationPassengers(ReservationPassengers reservationPassengers) {
         this.reservationPassengers.remove(reservationPassengers);
-        reservationPassengers.setReservationId(null);
+        reservationPassengers.setReservation(null);
         return this;
     }
 
@@ -86,25 +86,25 @@ public class Reservations implements Serializable {
         this.reservationPassengers = reservationPassengers;
     }
 
-    public Agencies getAgenciesAgencyId() {
-        return agenciesAgencyId;
+    public Agencies getAgencies() {
+        return agencies;
     }
 
-    public Reservations agenciesAgencyId(Agencies agencies) {
-        this.agenciesAgencyId = agencies;
+    public Reservations agencies(Agencies agencies) {
+        this.agencies = agencies;
         return this;
     }
 
-    public void setAgenciesAgencyId(Agencies agencies) {
-        this.agenciesAgencyId = agencies;
+    public void setAgencies(Agencies agencies) {
+        this.agencies = agencies;
     }
 
-    public FlightSchedule getFlightScheduleId() {
-        return flightScheduleId;
+    public FlightSchedule getFlightSchedule() {
+        return flightSchedule;
     }
 
-    public void setflightScheduleId(FlightSchedule flightSchedule) {
-        this.flightScheduleId = flightSchedule;
+    public void setflightSchedule(FlightSchedule flightSchedule) {
+        this.flightSchedule = flightSchedule;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and
     // setters here, do not remove

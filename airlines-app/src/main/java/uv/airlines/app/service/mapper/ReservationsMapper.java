@@ -1,6 +1,6 @@
 package uv.airlines.app.service.mapper;
 
-import uv.airlines.app.domain.*;
+import uv.airlines.app.domain.Reservations;
 import uv.airlines.app.service.dto.ReservationsDTO;
 
 import org.mapstruct.*;
@@ -9,16 +9,16 @@ import org.mapstruct.*;
  * Mapper for the entity {@link Reservations} and its DTO
  * {@link ReservationsDTO}.
  */
-@Mapper(componentModel = "spring", uses = { AgenciesMapper.class, AirportsMapper.class })
+@Mapper(componentModel = "spring", uses = { AgenciesMapper.class, FlightScheduleMapper.class })
 public interface ReservationsMapper extends EntityMapper<ReservationsDTO, Reservations> {
 
-    @Mapping(source = "agenciesAgencyId.id", target = "agenciesAgencyIdId")
-    
+    @Mapping(source = "agencies.id", target = "agenciesId")
+    @Mapping(source = "flightSchedule.id", target = "flightScheduleId")
     ReservationsDTO toDto(Reservations reservations);
 
     @Mapping(target = "reservationPassengers", ignore = true)
-    @Mapping(source = "agenciesAgencyIdId", target = "agenciesAgencyId")
-    
+    @Mapping(source = "agenciesId", target = "agencies")
+    @Mapping(source = "flightScheduleId", target = "flightSchedule")
     Reservations toEntity(ReservationsDTO reservationsDTO);
 
     default Reservations fromId(Long id) {

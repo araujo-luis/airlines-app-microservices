@@ -12,7 +12,6 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "passenger")
-
 public class Passenger implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -29,8 +28,7 @@ public class Passenger implements Serializable {
     @Column(name = "lastname", length = 45)
     private String lastname;
 
-    @OneToMany(mappedBy = "passDni")
-
+    @OneToMany(mappedBy = "passenger")
     private Set<ReservationPassengers> reservationPassengers = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not
@@ -80,13 +78,13 @@ public class Passenger implements Serializable {
 
     public Passenger addReservationPassengers(ReservationPassengers reservationPassengers) {
         this.reservationPassengers.add(reservationPassengers);
-        reservationPassengers.setPassDni(this);
+        reservationPassengers.setPassenger(this);
         return this;
     }
 
     public Passenger removeReservationPassengers(ReservationPassengers reservationPassengers) {
         this.reservationPassengers.remove(reservationPassengers);
-        reservationPassengers.setPassDni(null);
+        reservationPassengers.setPassenger(null);
         return this;
     }
 

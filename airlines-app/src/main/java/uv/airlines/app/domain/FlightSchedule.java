@@ -6,13 +6,14 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A FlightSchedule.
  */
 @Entity
 @Table(name = "flight_schedule")
-
 public class FlightSchedule implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -28,27 +29,15 @@ public class FlightSchedule implements Serializable {
     private LocalDateTime arrivalDate;
 
     @Column(name = "flight_rate")
-    private Float flightRate;
+    private Double flightRate;
 
     @ManyToOne
-    @JsonIgnoreProperties("aircraftId")
-    private Aircrafts aircraftId;
+    @JsonIgnoreProperties("aircraft")
+    private Aircrafts aircraft;
 
-    public FlightSchedule() {
-        super();
-    }
-
-    public FlightSchedule(Long id, LocalDateTime takeoffDate, LocalDateTime arrivalDate, Float flightRate,
-            Aircrafts aircraftId, Airports airportTakeoff, Airports airportArrival) {
-        super();
-        this.id = id;
-        this.takeoffDate = takeoffDate;
-        this.arrivalDate = arrivalDate;
-        this.flightRate = flightRate;
-        this.aircraftId = aircraftId;
-        this.airportTakeoff = airportTakeoff;
-        this.airportArrival = airportArrival;
-    }
+    @OneToMany(mappedBy = "flightSchedule")
+    @JsonIgnoreProperties("reservations")
+    private Set<Reservations> reservations = new HashSet<>();
 
     @ManyToOne
     @JsonIgnoreProperties("airportTakeoff")
@@ -57,6 +46,22 @@ public class FlightSchedule implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties("airportArrival")
     private Airports airportArrival;
+
+    public FlightSchedule() {
+        super();
+    }
+
+    public FlightSchedule(Long id, LocalDateTime takeoffDate, LocalDateTime arrivalDate, Double flightRate,
+            Aircrafts aircraft, Airports airportTakeoff, Airports airportArrival) {
+        super();
+        this.id = id;
+        this.takeoffDate = takeoffDate;
+        this.arrivalDate = arrivalDate;
+        this.flightRate = flightRate;
+        this.aircraft = aircraft;
+        this.airportTakeoff = airportTakeoff;
+        this.airportArrival = airportArrival;
+    }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not
     // remove
@@ -94,30 +99,30 @@ public class FlightSchedule implements Serializable {
         this.arrivalDate = arrivalDate;
     }
 
-    public Float getFlightRate() {
+    public Double getFlightRate() {
         return flightRate;
     }
 
-    public FlightSchedule flightRate(Float flightRate) {
+    public FlightSchedule flightRate(Double flightRate) {
         this.flightRate = flightRate;
         return this;
     }
 
-    public void setFlightRate(Float flightRate) {
+    public void setFlightRate(Double flightRate) {
         this.flightRate = flightRate;
     }
 
-    public Aircrafts getAircraftId() {
-        return aircraftId;
+    public Aircrafts getAircraft() {
+        return aircraft;
     }
 
-    public FlightSchedule aircraftId(Aircrafts aircrafts) {
-        this.aircraftId = aircrafts;
+    public FlightSchedule aircraft(Aircrafts aircrafts) {
+        this.aircraft = aircrafts;
         return this;
     }
 
-    public void setAircraftId(Aircrafts aircrafts) {
-        this.aircraftId = aircrafts;
+    public void setAircraft(Aircrafts aircrafts) {
+        this.aircraft = aircrafts;
     }
 
     public Airports getAirportTakeoff() {

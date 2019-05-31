@@ -27,7 +27,7 @@ public class Aircrafts implements Serializable {
     @Column(name = "capacity")
     private Integer capacity;
 
-    @OneToMany(mappedBy = "aircraftId")
+    @OneToMany(mappedBy = "aircraft")
     private Set<FlightSchedule> flightSchedules = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not
@@ -77,13 +77,13 @@ public class Aircrafts implements Serializable {
 
     public Aircrafts addFlightSchedule(FlightSchedule flightSchedule) {
         this.flightSchedules.add(flightSchedule);
-        flightSchedule.setAircraftId(this);
+        flightSchedule.setAircraft(this);
         return this;
     }
 
     public Aircrafts removeFlightSchedule(FlightSchedule flightSchedule) {
         this.flightSchedules.remove(flightSchedule);
-        flightSchedule.setAircraftId(null);
+        flightSchedule.setAircraft(null);
         return this;
     }
 
