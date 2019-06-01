@@ -1,6 +1,7 @@
 package uv.airlines.app;
 
 import java.util.Calendar;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import com.github.javafaker.Faker;
@@ -10,18 +11,22 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import uv.airlines.app.domain.ReservationPassengers;
 import uv.airlines.app.service.AgenciesService;
 import uv.airlines.app.service.AircraftsService;
 import uv.airlines.app.service.AirportsService;
 import uv.airlines.app.service.FlightScheduleService;
 import uv.airlines.app.service.PassengerService;
+import uv.airlines.app.service.ReservationPassengersService;
 import uv.airlines.app.service.ReservationsService;
 import uv.airlines.app.service.dto.AgenciesDTO;
 import uv.airlines.app.service.dto.AircraftsDTO;
 import uv.airlines.app.service.dto.AirportsDTO;
 import uv.airlines.app.service.dto.FlightScheduleDTO;
 import uv.airlines.app.service.dto.PassengerDTO;
+import uv.airlines.app.service.dto.ReservationPassengersDTO;
 import uv.airlines.app.service.dto.ReservationsDTO;
+import uv.airlines.app.web.rest.ReservationPassengersResource;
 
 @SpringBootApplication
 public class AirlinesAppApplication implements CommandLineRunner {
@@ -42,6 +47,8 @@ public class AirlinesAppApplication implements CommandLineRunner {
 
 	@Autowired
 	private ReservationsService reservationsService;
+	@Autowired
+	private ReservationPassengersService reservationPassengersService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(AirlinesAppApplication.class, args);
@@ -52,10 +59,10 @@ public class AirlinesAppApplication implements CommandLineRunner {
 
 		// generateAirport(20);
 		// generateAircraft(20);
-		// generateScheduleFlight(20);
 		// generatePassenger(20);
 		// generateAgencies(10);
-		// generateReservation(1);
+		// generateScheduleFlight(20);
+		generateReservation(1);
 
 	}
 
@@ -98,11 +105,11 @@ public class AirlinesAppApplication implements CommandLineRunner {
 
 		for (int i = 0; i < quantity; i++) {
 			FlightScheduleDTO flightScheduleDTO = new FlightScheduleDTO();
-			flightScheduleDTO.setAircraftId(Long.valueOf(faker.number().numberBetween(2, 23)));
+			flightScheduleDTO.setAircraftId(Long.valueOf(faker.number().numberBetween(1, 20)));
 			flightScheduleDTO
-					.setAirportArrivalId(faker.options().option("aw82", "fy19", "fz92", "jw93", "bx38", "aw82"));
+					.setAirportArrivalId(faker.options().option("aj95", "ea61", "eg12", "fh89", "fy71", "ge13"));
 			flightScheduleDTO
-					.setAirportTakeoffId(faker.options().option("gc55", "wt47", "tw16", "qq96", "sk28", "of61"));
+					.setAirportTakeoffId(faker.options().option("sk05", "lk60", "hq74", "of09", "sk05", "nt79"));
 			flightScheduleDTO.setFlightRate(Float.valueOf(faker.commerce().price()));
 			flightScheduleDTO.setTakeoffDate(faker.date().past(7, TimeUnit.DAYS));
 			flightScheduleDTO.setArrivalDate(faker.date().future(7, TimeUnit.DAYS));
@@ -133,11 +140,23 @@ public class AirlinesAppApplication implements CommandLineRunner {
 	}
 
 	public void generateReservation(int quantity) {
+
 		ReservationsDTO reservationsDTO = new ReservationsDTO();
-		// reservationsDTO.setAgenciesAgencyIdId(new Long(1));
-		// reservationsDTO.setAirportsAirportIdId(new Long(82));
+		reservationsDTO.setAgenciesId(new Long(1));
+		reservationsDTO.setFlightScheduleId(new Long(13));
 		reservationsDTO.setReservationDate(Calendar.getInstance().getTime());
-		reservationsService.save(reservationsDTO);
+		// reservationsService.save(reservationsDTO);
+
+		Optional<FlightScheduleDTO> flight = flightScheduleService.findOne(new Long(13));
+		ReservationPassengersDTO reservationPassengersDTO = new ReservationPassengersDTO();
+		reservationPassengersDTO.setLuggagesQuanity(2);
+		reservationPassengersDTO.setPassengerId(new Long(3));
+		reservationPassengersDTO.setReservation(new Long(1));
+		reservationPassengersDTO.setSeatNumber("2");
+		reservationPassengersDTO.setPriority(true);
+		reservationPassengersDTO.setPrice(flight.get().getFlightRate().doubleValue());
+		reservationPassengersService.save(reservationPassengersDTO);
+
 	}
 
 }
