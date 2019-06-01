@@ -23,7 +23,7 @@ public interface ReservationPassengersRepository extends JpaRepository<Reservati
 	//Q6
 	@Query("SELECT new uv.airlines.app.service.dto.PassengersPriorityDTO(P.id, P.name, P.lastname,  COUNT(P)) "+ 
 			"FROM ReservationPassengers RP " + 
-			"INNER JOIN RP.passDni P " + 
+			"INNER JOIN RP.passenger P " + 
 			"where RP.priority = 1 " + 
 			"GROUP BY P.id " + 
 			"HAVING COUNT(P) > ?1")
@@ -33,8 +33,8 @@ public interface ReservationPassengersRepository extends JpaRepository<Reservati
 	//Q7
 	@Query("SELECT new uv.airlines.app.service.dto.ProfitFlightsDTO(A.munipality, A.continent, A.id, SUM(RP.flightRate)) "+ 
 			"FROM ReservationPassengers RP " + 
-			"INNER JOIN RP.reservationId R " + 
-			"INNER JOIN R.flightScheduleId FS " +  
+			"INNER JOIN RP.reservation R " + 
+			"INNER JOIN R.flightSchedule FS " +  
 			"INNER JOIN FS.airportArrival A " +
 			"WHERE R.reservationDate BETWEEN :start AND :end " + 
 			"GROUP BY FS.airportArrival " +
@@ -44,7 +44,7 @@ public interface ReservationPassengersRepository extends JpaRepository<Reservati
 	//Q8
 	@Query("SELECT new uv.airlines.app.service.dto.MonthlyProfitsDTO(YEAR(R.reservationDate), MONTH(R.reservationDate), sum(RP.flightRate)) " + 
 			"FROM ReservationPassengers RP " +
-			"INNER JOIN RP.reservationId R " + 
+			"INNER JOIN RP.reservation R " + 
 			"GROUP BY YEAR(R.reservationDate), MONTH(R.reservationDate) " +
 			"ORDER BY YEAR(R.reservationDate), MONTH(R.reservationDate) DESC")
 	public List<MonthlyProfitsDTO> getMonthlyProfits(Pageable pageable);

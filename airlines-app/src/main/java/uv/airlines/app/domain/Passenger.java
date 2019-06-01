@@ -17,8 +17,7 @@ public class Passenger implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @Size(max = 45)
     @Column(name = "name", length = 45)
@@ -33,11 +32,11 @@ public class Passenger implements Serializable {
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not
     // remove
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
