@@ -104,12 +104,12 @@ public class ReservationPassengersDTO implements Serializable {
                 + getReservation() + ", passDni=" + getPassengerId() + "}";
     }
 
-    public Double getPrice() {
+    public Double getFlightRate() {
         return flightRate;
     }
 
-    public void setPrice(Double price) {
-        this.flightRate = price;
+    public void setFlightRate(Double flightRate) {
+        this.flightRate = flightRate;
     }
 
     public Boolean getPaid() {

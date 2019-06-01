@@ -1,8 +1,8 @@
 package uv.airlines.app.service.impl;
 
-import uv.airlines.app.service.ReservationPassengersService;
 import uv.airlines.app.domain.ReservationPassengers;
 import uv.airlines.app.repository.ReservationPassengersRepository;
+import uv.airlines.app.service.ReservationPassengersService;
 import uv.airlines.app.service.dto.MonthlyProfitsDTO;
 import uv.airlines.app.service.dto.PassengersPriorityDTO;
 import uv.airlines.app.service.dto.ProfitFlightsDTO;
@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -94,22 +96,106 @@ public class ReservationPassengersServiceImpl implements ReservationPassengersSe
         reservationPassengersRepository.deleteById(id);
     }
 
-	@Override
-	public List<PassengersPriorityDTO> findAllPassengersWithPriority() {
-		return reservationPassengersRepository.getPassengerPriority(2);
-	}
+    @Override
+    public List<PassengersPriorityDTO> findAllPassengersWithPriority() {
+        return reservationPassengersRepository.getPassengerPriority(2);
+    }
 
-	@Override
-	public List<ProfitFlightsDTO> getTop10ProfitsFlights() {
-		Pageable top10 = PageRequest.of(0, 10);
-		Date now = new Date();
-		Date monthAgo = new DateTime().minusMonths(1).toDate();
-		return reservationPassengersRepository.findTop10ProfitsFlights(top10, monthAgo, now);
-	}
+    @Override
+    public List<ProfitFlightsDTO> getTop10ProfitsFlights() {
+        Pageable top10 = PageRequest.of(0, 10);
+        Date now = new Date();
+        Date monthAgo = new DateTime().minusMonths(1).toDate();
+        return reservationPassengersRepository.findTop10ProfitsFlights(top10, monthAgo, now);
+    }
 
-	@Override
-	public List<MonthlyProfitsDTO> getMonthlyProfits() {
-		Pageable months = PageRequest.of(0, 2);
-		return reservationPassengersRepository.getMonthlyProfits(months);
-	}
+    @Override
+    public List<MonthlyProfitsDTO> getMonthlyProfits() {
+        Pageable months = PageRequest.of(0, 2);
+        return reservationPassengersRepository.getMonthlyProfits(months);
+    }
+
+    @Override
+    public Optional<ReservationPassengersDTO> findByPassengerIdAndReservationId(String passenger, Long reservation) {
+        return reservationPassengersRepository.findByPassengerIdAndReservationId(passenger, reservation)
+                .map(reservationPassengersMapper::toDto);
+    }
+
+    @Override
+    public Boolean payReservation(String passenger, Long reservation) {
+        log.debug("Request to pay ReservationPassengers : {}", passenger, reservation);
+        Optional<ReservationPassengersDTO> r = reservationPassengersRepository
+                .findByPassengerIdAndReservationId(passenger, reservation).map(reservationPassengersMapper::toDto);
+
+        if (r.isPresent()) {
+            ReservationPassengersDTO rDto = r.get();
+            rDto.setPaid(true);
+            reservationPassengersRepository.save(reservationPassengersMapper.toEntity(rDto));
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Boolean cancelReservation(String passenger, Long reservation) {
+        log.debug("Requesto to cancel ReservationPassengers : {}", passenger, reservation);
+        Boolean canceled = false;
+
+        Optional<ReservationPassengers> r = reservationPassengersRepository.findByPassengerIdAndReservationId(passenger, reservation);
+
+        if (r.isPresent()) {
+            // TODO Change this for a query, and add state to PassengerReservation
+            LocalDateTime dateArrival = r.get().getReservation().getFlightSchedule().getArrivalDate();
+            LocalDateTime now = LocalDateTime.now();
+            Period period = Period.between(dateArrival.toLocalDate(), LocalDate.now());
+
+            if (period.getDays() > 7) {
+                ReservationPassengersDTO rDto = r.map(reservationPassengersMapper::toDto).get();
+                // rDto.setState(true or false);
+                ReservationPassengers nReservation = reservationPassengersRepository
+                        .save(reservationPassengersMapper.toEntity(rDto));
+                canceled = true;
+                return canceled;
+            }
+        }
+        return canceled;
+    }
+
+    @Override
+    public Boolean changeSeat(String passenger, Long reservation, String SeatNumber) {
+        log.debug("Requesto to change seat ReservationPassengers : {}", passenger, reservation);
+
+        Boolean changed = false;
+        Optional<ReservationPassengers> rTest = reservationPassengersRepository
+                .findByPassengerIdAndReservationId(passenger, reservation);
+
+        if (rTest.isPresent()) {
+            // TODO Change this for a query
+            // add a query if seat busy or not
+            LocalDateTime dateArrival = rTest.get().getReservation().getFlightSchedule().getArrivalDate();
+            LocalDateTime now = LocalDateTime.now();
+            Period period = Period.between(dateArrival.toLocalDate(), LocalDate.now());
+
+            if (period.getDays() > 7) {
+                ReservationPassengersDTO rDto = rTest.map(reservationPassengersMapper::toDto).get();
+                rDto.setSeatNumber(SeatNumber);
+                ReservationPassengers nReservation = reservationPassengersRepository
+                        .save(reservationPassengersMapper.toEntity(rDto));
+                changed = true;
+                return changed;
+            }
+        }
+
+        return changed;
+    }
+
+    @Override
+    public List<ReservationPassengersDTO> findByFlightPendient(LocalDateTime today, Long idAgencies) {
+        
+        List<ReservationPassengers> r = reservationPassengersRepository.findByFlightPendient(LocalDateTime.now(), idAgencies);
+        System.out.println("Listado de pasajeros reservados " + r.size());
+        return null;
+    }
+
+    
 }

@@ -10,49 +10,50 @@ import java.util.Optional;
  */
 public interface FlightScheduleService {
 
-    /**
-     * Save a flightSchedule.
-     *
-     * @param flightScheduleDTO the entity to save.
-     * @return the persisted entity.
-     */
-    FlightScheduleDTO save(FlightScheduleDTO flightScheduleDTO);
+        /**
+         * Save a flightSchedule.
+         *
+         * @param flightScheduleDTO the entity to save.
+         * @return the persisted entity.
+         */
+        FlightScheduleDTO save(FlightScheduleDTO flightScheduleDTO);
 
-    /**
-     * Get all the flightSchedules.
-     *
-     * @return the list of entities.
-     */
-    List<FlightScheduleDTO> findAll();
+        /**
+         * Get all the flightSchedules.
+         *
+         * @return the list of entities.
+         */
+        List<FlightScheduleDTO> findAll();
 
-    /**
-     * Get the "id" flightSchedule.
-     *
-     * @param id the id of the entity.
-     * @return the entity.
-     */
-    Optional<FlightScheduleDTO> findOne(Long id);
+        /**
+         * Get the "id" flightSchedule.
+         *
+         * @param id the id of the entity.
+         * @return the entity.
+         */
+        Optional<FlightScheduleDTO> findOne(Long id);
 
-    /**
-     * Delete the "id" flightSchedule.
-     *
-     * @param id the id of the entity.
-     */
-    void delete(Long id);
+        /**
+         * Delete the "id" flightSchedule.
+         *
+         * @param id the id of the entity.
+         */
+        void delete(Long id);
 
-    /**
-     * Get the "AirportTakeOff" flightSchedule.
-     *
-     * @param id the id of the entity.
-     */
-    List<FlightScheduleDTO> findFlights(String airportTakeoff, String airportArrival, Long takeoffDate,
-            Long takeoffDate2);
+        /**
+         * Get the "AirportTakeOff" flightSchedule.
+         *
+         * @param id the id of the entity.
+         */
+        List<FlightScheduleDTO> findFlights(String airportTakeoff, String airportArrival, Long takeoffDate,
+                        Long takeoffDate2);
 
-    /**
-     * Get the "AirportTakeOff" flightSchedule.
-     *
-     * @param id the id of the entity.
-     */
-    List<FlightScheduleDTO> findOptionalFlights(String airportTakeoff, String airportArrival, Long takeoffDate,
-            Long takeoffDate2);
+        /**
+         * Get the "AirportTakeOff" flightSchedule.
+         *
+         * @param id the id of the entity.
+         */
+        List<FlightScheduleDTO> findOptionalFlights(String airportTakeoff, String airportArrival, Long takeoffDate,
+                        Long takeoffDate2);
+
 }

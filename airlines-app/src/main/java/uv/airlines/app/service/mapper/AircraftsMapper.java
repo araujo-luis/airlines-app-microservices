@@ -1,6 +1,6 @@
 package uv.airlines.app.service.mapper;
 
-import uv.airlines.app.domain.*;
+import uv.airlines.app.domain.Aircrafts;
 import uv.airlines.app.service.dto.AircraftsDTO;
 
 import org.mapstruct.*;

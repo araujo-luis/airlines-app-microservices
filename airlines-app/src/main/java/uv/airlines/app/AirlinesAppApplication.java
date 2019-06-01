@@ -1,11 +1,14 @@
 package uv.airlines.app;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import com.github.javafaker.Faker;
 
+import org.joda.time.LocalTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -61,7 +64,8 @@ public class AirlinesAppApplication implements CommandLineRunner {
 		// generatePassenger(20);
 		// generateAgencies(10);
 		// generateScheduleFlight(20);
-		generateReservation(1);
+		// generateReservation(1);
+		testFindReservation();
 
 	}
 
@@ -108,9 +112,9 @@ public class AirlinesAppApplication implements CommandLineRunner {
 			FlightScheduleDTO flightScheduleDTO = new FlightScheduleDTO();
 			flightScheduleDTO.setAircraftId(Long.valueOf(faker.number().numberBetween(1, 20)));
 			flightScheduleDTO
-					.setAirportArrivalId(faker.options().option("aj95", "ea61", "eg12", "fh89", "fy71", "ge13"));
+					.setAirportArrivalId(faker.options().option("bq60", "ek41", "fr34", "hi01", "hq21", "in88"));
 			flightScheduleDTO
-					.setAirportTakeoffId(faker.options().option("sk05", "lk60", "hq74", "of09", "sk05", "nt79"));
+					.setAirportTakeoffId(faker.options().option("rj42", "ne16", "ru63", "oa04", "qp25", "mr10"));
 			flightScheduleDTO.setFlightRate(Float.valueOf(faker.commerce().price()));
 			flightScheduleDTO.setTakeoffDate(faker.date().past(7, TimeUnit.DAYS));
 			flightScheduleDTO.setArrivalDate(faker.date().future(7, TimeUnit.DAYS));
@@ -123,6 +127,7 @@ public class AirlinesAppApplication implements CommandLineRunner {
 
 		for (int i = 0; i < quantity; i++) {
 			PassengerDTO passengerDTO = new PassengerDTO();
+			passengerDTO.setId(faker.bothify("???"));
 			passengerDTO.setName(faker.name().firstName());
 			passengerDTO.setLastname(faker.name().lastName());
 			passengerService.save(passengerDTO);
@@ -142,21 +147,40 @@ public class AirlinesAppApplication implements CommandLineRunner {
 
 	public void generateReservation(int quantity) {
 
-		ReservationsDTO reservationsDTO = new ReservationsDTO();
-		reservationsDTO.setAgenciesId(new Long(1));
-		reservationsDTO.setFlightScheduleId(new Long(13));
-		reservationsDTO.setReservationDate(Calendar.getInstance().getTime());
+		// ReservationsDTO reservationsDTO = new ReservationsDTO();
+		// reservationsDTO.setAgenciesId(new Long(1));
+		// reservationsDTO.setFlightScheduleId(new Long(13));
+		// reservationsDTO.setReservationDate(Calendar.getInstance().getTime());
 		// reservationsService.save(reservationsDTO);
 
 		Optional<FlightScheduleDTO> flight = flightScheduleService.findOne(new Long(13));
-		ReservationPassengersDTO reservationPassengersDTO = new ReservationPassengersDTO();
-		reservationPassengersDTO.setLuggagesQuanity(2);
-		reservationPassengersDTO.setPassengerId(new Long(3));
-		reservationPassengersDTO.setReservation(new Long(1));
-		reservationPassengersDTO.setSeatNumber("2");
-		reservationPassengersDTO.setPriority(true);
-		reservationPassengersDTO.setPrice(flight.get().getFlightRate().doubleValue());
+		Optional<ReservationPassengersDTO> oldReservationPassengersDTO = reservationPassengersService
+				.findOne(new Long(5));
+		ReservationPassengersDTO reservationPassengersDTO = oldReservationPassengersDTO.get();
+		reservationPassengersDTO.setPaid(true);
 		reservationPassengersService.save(reservationPassengersDTO);
+
+	}
+
+	public void payReservation() {
+		// Reservation Id & Passenger Id
+		Optional<FlightScheduleDTO> flight = flightScheduleService.findOne(new Long(13));
+		Optional<ReservationPassengersDTO> oldReservationPassengersDTO = reservationPassengersService
+				.findOne(new Long(5));
+		ReservationPassengersDTO reservationPassengersDTO = oldReservationPassengersDTO.get();
+		reservationPassengersDTO.setPaid(true);
+		reservationPassengersService.save(reservationPassengersDTO);
+	}
+
+	public void testFindReservation() {
+
+		// reservationPassengersService.changeSeat("azt", new Long(4), "5");
+
+		// Boolean isPaid = reservationPassengersService.payReservation("azt", new
+		// Long(4));
+		// System.out.println("Ha sido pagado?" + isPaid);
+		
+		reservationPassengersService.findByFlightPendient(LocalDateTime.now(), new Long(1));
 
 	}
 

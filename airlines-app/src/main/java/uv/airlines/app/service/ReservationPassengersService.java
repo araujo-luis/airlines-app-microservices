@@ -5,6 +5,9 @@ import uv.airlines.app.service.dto.PassengersPriorityDTO;
 import uv.airlines.app.service.dto.ProfitFlightsDTO;
 import uv.airlines.app.service.dto.ReservationPassengersDTO;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,28 +31,60 @@ public interface ReservationPassengersService {
      * @return the list of entities.
      */
     List<ReservationPassengersDTO> findAll();
-    
+
+
+    public List<ReservationPassengersDTO> findByFlightPendient(LocalDateTime today,Long idAgencies);
     /**
-     * Get all the Passengers who have bought tickets with priority more than a parameter.
+     * Get all the Passengers who have bought tickets with priority more than a
+     * parameter.
      *
      * @return the list of entities.
      */
     List<PassengersPriorityDTO> findAllPassengersWithPriority();
-    
+
     /**
-     * Get all the Passengers who have bought tickets with priority more than a parameter.
+     * Get all the Passengers who have bought tickets with priority more than a
+     * parameter.
+     *
+     * @return the list of entities.
+     */
+    Optional<ReservationPassengersDTO> findByPassengerIdAndReservationId(String passenger, Long reservation);
+
+    /**
+     * Cancel the reservation who reserved the ticket to flight
+     *
+     * @return boolean value.
+     */
+    Boolean cancelReservation(String passenger, Long reservation);
+
+    /**
+     * Pay the ticket to realize the flight
+     *
+     * @return boolean value.
+     */
+    Boolean payReservation(String passenger, Long reservation);
+
+    /**
+     * change the Seat of passenger on reservation
+     * 
+     * @return
+     */
+    Boolean changeSeat(String passenger, Long reservation, String numberSeat);
+
+    /**
+     * Get all the Passengers who have bought tickets with priority more than a
+     * parameter.
      *
      * @return the list of entities.
      */
     List<MonthlyProfitsDTO> getMonthlyProfits();
-    
+
     /**
      * Get Top 10 destinations profitable
      *
      * @return the list of entities.
      */
     List<ProfitFlightsDTO> getTop10ProfitsFlights();
-    
 
     /**
      * Get the "id" reservationPassengers.

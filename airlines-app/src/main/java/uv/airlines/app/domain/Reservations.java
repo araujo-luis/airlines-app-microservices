@@ -14,7 +14,6 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "reservations")
-
 public class Reservations implements Serializable {
 
     private static final long serialVersionUID = 1L;

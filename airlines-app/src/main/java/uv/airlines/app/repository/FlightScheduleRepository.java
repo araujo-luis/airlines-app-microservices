@@ -18,11 +18,16 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface FlightScheduleRepository extends JpaRepository<FlightSchedule, Long> {
-	
+
 	public List<FlightSchedule> findByAirportTakeoff_idAndAirportArrival_idAndTakeoffDateGreaterThanEqualAndTakeoffDateLessThan(
 			String airportTakeoff, String airportArrival, LocalDateTime arrivalDate, LocalDateTime arrivalDate2);
+
 	public List<FlightSchedule> findByAirportTakeoff_idAndAirportArrival_idAndTakeoffDateGreaterThanEqualAndTakeoffDateLessThanOrderByFlightRateAsc(
 			String airportTakeoff, String airportArrival, LocalDateTime arrivalDate, LocalDateTime arrivalDate2);
 
-	
+	// // Q5
+	// @Query()
+	// public FlightSchedule getFlightReservation(String passenger, String
+	// reservation, String FlightSchedule);
+
 }
