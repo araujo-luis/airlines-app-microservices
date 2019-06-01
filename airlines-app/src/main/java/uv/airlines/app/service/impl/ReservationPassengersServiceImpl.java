@@ -3,14 +3,22 @@ package uv.airlines.app.service.impl;
 import uv.airlines.app.service.ReservationPassengersService;
 import uv.airlines.app.domain.ReservationPassengers;
 import uv.airlines.app.repository.ReservationPassengersRepository;
+import uv.airlines.app.service.dto.MonthlyProfitsDTO;
+import uv.airlines.app.service.dto.PassengersPriorityDTO;
+import uv.airlines.app.service.dto.ProfitFlightsDTO;
 import uv.airlines.app.service.dto.ReservationPassengersDTO;
 import uv.airlines.app.service.mapper.ReservationPassengersMapper;
+
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -85,4 +93,23 @@ public class ReservationPassengersServiceImpl implements ReservationPassengersSe
         log.debug("Request to delete ReservationPassengers : {}", id);
         reservationPassengersRepository.deleteById(id);
     }
+
+	@Override
+	public List<PassengersPriorityDTO> findAllPassengersWithPriority() {
+		return reservationPassengersRepository.getPassengerPriority(2);
+	}
+
+	@Override
+	public List<ProfitFlightsDTO> getTop10ProfitsFlights() {
+		Pageable top10 = PageRequest.of(0, 10);
+		Date now = new Date();
+		Date monthAgo = new DateTime().minusMonths(1).toDate();
+		return reservationPassengersRepository.findTop10ProfitsFlights(top10, monthAgo, now);
+	}
+
+	@Override
+	public List<MonthlyProfitsDTO> getMonthlyProfits() {
+		Pageable months = PageRequest.of(0, 2);
+		return reservationPassengersRepository.getMonthlyProfits(months);
+	}
 }

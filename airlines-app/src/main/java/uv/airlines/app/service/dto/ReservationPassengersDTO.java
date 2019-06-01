@@ -24,7 +24,7 @@ public class ReservationPassengersDTO implements Serializable {
 
     private Long passengerId;
 
-    private Double price;
+    private Double flightRate;
 
     private Boolean paid;
 

@@ -26,7 +26,6 @@ import uv.airlines.app.service.dto.FlightScheduleDTO;
 import uv.airlines.app.service.dto.PassengerDTO;
 import uv.airlines.app.service.dto.ReservationPassengersDTO;
 import uv.airlines.app.service.dto.ReservationsDTO;
-import uv.airlines.app.web.rest.ReservationPassengersResource;
 
 @SpringBootApplication
 public class AirlinesAppApplication implements CommandLineRunner {
@@ -69,7 +68,8 @@ public class AirlinesAppApplication implements CommandLineRunner {
 	public void generateAirport(int quantity) {
 		Faker faker = new Faker();
 
-		for (int i = 0; i < quantity; i++) {
+		for (int i = 0; i < 20; i++) {
+
 			AirportsDTO airportsDTO = new AirportsDTO();
 			airportsDTO.setContinent(faker.address().countryCode());
 			airportsDTO.setCoordinates(faker.address().longitude() + ", " + faker.address().latitude());
@@ -83,6 +83,7 @@ public class AirlinesAppApplication implements CommandLineRunner {
 			airportsDTO.setType(faker.options().option("plane", "heli"));
 			airportsDTO.setId(faker.bothify("??##"));
 			airportsService.save(airportsDTO);
+
 		}
 
 	}
