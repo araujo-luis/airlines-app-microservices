@@ -1,9 +1,12 @@
 package uv.airlines.app.service.impl;
 
 import uv.airlines.app.service.ReservationsService;
+import uv.airlines.app.domain.ReservationPassengers;
 import uv.airlines.app.domain.Reservations;
 import uv.airlines.app.repository.ReservationsRepository;
+import uv.airlines.app.service.dto.ReservationPassengersDTO;
 import uv.airlines.app.service.dto.ReservationsDTO;
+import uv.airlines.app.service.mapper.ReservationPassengersMapper;
 import uv.airlines.app.service.mapper.ReservationsMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,11 +31,32 @@ public class ReservationsServiceImpl implements ReservationsService {
     private final ReservationsRepository reservationsRepository;
 
     private final ReservationsMapper reservationsMapper;
+    private final ReservationPassengersMapper reservationPassengersMapper;
 
-    public ReservationsServiceImpl(ReservationsRepository reservationsRepository,
-            ReservationsMapper reservationsMapper) {
+    public ReservationsServiceImpl(ReservationsRepository reservationsRepository, ReservationsMapper reservationsMapper,
+            ReservationPassengersMapper reservationPassengersMapper) {
         this.reservationsRepository = reservationsRepository;
         this.reservationsMapper = reservationsMapper;
+        this.reservationPassengersMapper = reservationPassengersMapper;
+    }
+
+    /**
+     * Save a reservations.
+     *
+     * @param reservationsDTO the entity to save.
+     * @return the persisted entity.
+     */
+    @Override
+    public ReservationsDTO saveAll(ReservationsDTO reservationsDTO,
+            List<ReservationPassengersDTO> reservationPassengersDTOs) {
+        log.debug("Request to save Reservations : {}", reservationsDTO);
+        Reservations reservation = reservationsMapper.toEntity(reservationsDTO);
+        List<ReservationPassengers> rp = reservationPassengersMapper.toEntity(reservationPassengersDTOs);
+        for (ReservationPassengers passenger : rp) {
+            reservation.addReservationPassengers(passenger);
+        }
+        reservation = reservationsRepository.save(reservation);
+        return reservationsMapper.toDto(reservation);
     }
 
     /**
@@ -44,9 +68,9 @@ public class ReservationsServiceImpl implements ReservationsService {
     @Override
     public ReservationsDTO save(ReservationsDTO reservationsDTO) {
         log.debug("Request to save Reservations : {}", reservationsDTO);
-        Reservations reservations = reservationsMapper.toEntity(reservationsDTO);
-        reservations = reservationsRepository.save(reservations);
-        return reservationsMapper.toDto(reservations);
+        Reservations reservation = reservationsMapper.toEntity(reservationsDTO);
+        reservation = reservationsRepository.save(reservation);
+        return reservationsMapper.toDto(reservation);
     }
 
     /**

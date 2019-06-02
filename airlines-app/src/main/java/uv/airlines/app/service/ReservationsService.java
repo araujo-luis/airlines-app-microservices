@@ -1,5 +1,7 @@
 package uv.airlines.app.service;
 
+import uv.airlines.app.domain.Reservations;
+import uv.airlines.app.service.dto.ReservationPassengersDTO;
 import uv.airlines.app.service.dto.ReservationsDTO;
 
 import java.util.List;
@@ -17,6 +19,17 @@ public interface ReservationsService {
      * @return the persisted entity.
      */
     ReservationsDTO save(ReservationsDTO reservationsDTO);
+
+
+
+    /**
+     * Save a reservations.
+     *
+     * @param reservationsDTO the entity to save.
+     * @return the persisted entity.
+     */
+    ReservationsDTO saveAll(ReservationsDTO reservationsDTO, List<ReservationPassengersDTO> reservationPassengerDTOs);
+
 
     /**
      * Get all the reservations.

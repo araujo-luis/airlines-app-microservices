@@ -26,7 +26,7 @@ public class Reservations implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date reservationDate;
 
-    @OneToMany(mappedBy = "reservation")
+    @OneToMany(mappedBy = "reservation", cascade = {CascadeType.MERGE,CascadeType.PERSIST})
     private Set<ReservationPassengers> reservationPassengers = new HashSet<>();
 
     @ManyToOne

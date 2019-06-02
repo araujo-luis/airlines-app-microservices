@@ -1,7 +1,9 @@
 package uv.airlines.app.web.rest;
 
+import uv.airlines.app.domain.ReservationPassengers;
 import uv.airlines.app.service.ReservationsService;
 import uv.airlines.app.web.rest.errors.BadRequestAlertException;
+import uv.airlines.app.service.dto.ReservationPassengersDTO;
 import uv.airlines.app.service.dto.ReservationsDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -13,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

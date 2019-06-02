@@ -38,10 +38,12 @@ public class ReservationPassengers implements Serializable {
     private String seatNumber;
     
     @ManyToOne
+    @JoinColumn(name = "reservation_id")
     @JsonIgnoreProperties("reservation")
     private Reservations reservation;
 
     @ManyToOne
+    @JoinColumn(name = "passenger_id")
     @JsonIgnoreProperties("passenger")
     private Passenger passenger;
 

@@ -2,7 +2,9 @@ package uv.airlines.app;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
@@ -14,7 +16,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import uv.airlines.app.domain.Agencies;
+import uv.airlines.app.domain.FlightSchedule;
+import uv.airlines.app.domain.Passenger;
 import uv.airlines.app.domain.ReservationPassengers;
+import uv.airlines.app.domain.Reservations;
 import uv.airlines.app.service.AgenciesService;
 import uv.airlines.app.service.AircraftsService;
 import uv.airlines.app.service.AirportsService;
@@ -29,6 +35,7 @@ import uv.airlines.app.service.dto.FlightScheduleDTO;
 import uv.airlines.app.service.dto.PassengerDTO;
 import uv.airlines.app.service.dto.ReservationPassengersDTO;
 import uv.airlines.app.service.dto.ReservationsDTO;
+import uv.airlines.app.service.mapper.FlightScheduleMapper;
 
 @SpringBootApplication
 public class AirlinesAppApplication implements CommandLineRunner {
@@ -52,6 +59,9 @@ public class AirlinesAppApplication implements CommandLineRunner {
 	@Autowired
 	private ReservationPassengersService reservationPassengersService;
 
+	FlightScheduleMapper flightScheduleMapper;
+
+
 	public static void main(String[] args) {
 		SpringApplication.run(AirlinesAppApplication.class, args);
 	}
@@ -64,8 +74,8 @@ public class AirlinesAppApplication implements CommandLineRunner {
 		// generatePassenger(20);
 		// generateAgencies(10);
 		// generateScheduleFlight(20);
-		// generateReservation(1);
-		testFindReservation();
+		generateReservation(1);
+		//testFindReservation();
 
 	}
 
@@ -147,18 +157,23 @@ public class AirlinesAppApplication implements CommandLineRunner {
 
 	public void generateReservation(int quantity) {
 
-		// ReservationsDTO reservationsDTO = new ReservationsDTO();
-		// reservationsDTO.setAgenciesId(new Long(1));
-		// reservationsDTO.setFlightScheduleId(new Long(13));
-		// reservationsDTO.setReservationDate(Calendar.getInstance().getTime());
-		// reservationsService.save(reservationsDTO);
+		ReservationsDTO r = new ReservationsDTO();
+		r.setAgenciesId(new Long(1));
+		r.setFlightScheduleId(new Long(13));
+		r.setReservationDate(Calendar.getInstance().getTime());
 
-		Optional<FlightScheduleDTO> flight = flightScheduleService.findOne(new Long(13));
-		Optional<ReservationPassengersDTO> oldReservationPassengersDTO = reservationPassengersService
-				.findOne(new Long(5));
-		ReservationPassengersDTO reservationPassengersDTO = oldReservationPassengersDTO.get();
-		reservationPassengersDTO.setPaid(true);
-		reservationPassengersService.save(reservationPassengersDTO);
+		 ReservationPassengersDTO reservationPassengersDTO = new ReservationPassengersDTO();
+		 reservationPassengersDTO.setPaid(true);
+		 reservationPassengersDTO.setPassengerId("bvj");
+		 reservationPassengersDTO.setLuggagesQuanity(3);
+		 reservationPassengersDTO.setPriority(true);
+		 reservationPassengersDTO.setSeatNumber("A1");
+		 reservationPassengersDTO.setFlightRate(30.00);
+
+		 List<ReservationPassengersDTO> rs = new ArrayList<>();
+		 rs.add(reservationPassengersDTO);
+		 // That save all without need to use ReservationPassengersService to Save ReservationPassengers
+		 reservationsService.saveAll(r, rs);
 
 	}
 
@@ -180,7 +195,7 @@ public class AirlinesAppApplication implements CommandLineRunner {
 		// Long(4));
 		// System.out.println("Ha sido pagado?" + isPaid);
 		
-		reservationPassengersService.findByFlightPendient(LocalDateTime.now(), new Long(1));
+		// reservationPassengersService.findByFlightPendient(LocalDateTime.now(), new Long(1));
 
 	}
 
