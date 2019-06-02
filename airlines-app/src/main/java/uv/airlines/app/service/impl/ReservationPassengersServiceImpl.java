@@ -144,7 +144,7 @@ public class ReservationPassengersServiceImpl implements ReservationPassengersSe
         Optional<ReservationPassengers> r = reservationPassengersRepository.findByPassengerIdAndReservationId(passenger, reservation);
 
         if (r.isPresent()) {
-            // TODO Change this for a query, and add state to PassengerReservation
+            // TODO  Q5 Change this for a query, and add state to PassengerReservation or use Delete method
             LocalDateTime dateArrival = r.get().getReservation().getFlightSchedule().getArrivalDate();
             LocalDateTime now = LocalDateTime.now();
             Period period = Period.between(dateArrival.toLocalDate(), LocalDate.now());
@@ -170,7 +170,7 @@ public class ReservationPassengersServiceImpl implements ReservationPassengersSe
                 .findByPassengerIdAndReservationId(passenger, reservation);
 
         if (rTest.isPresent()) {
-            // TODO Change this for a query
+            // TODO Q5 Change this for a query
             // add a query if seat busy or not
             LocalDateTime dateArrival = rTest.get().getReservation().getFlightSchedule().getArrivalDate();
             LocalDateTime now = LocalDateTime.now();

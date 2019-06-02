@@ -31,7 +31,7 @@ public class ReservationPassengersResource {
 
     private final Logger log = LoggerFactory.getLogger(ReservationPassengersResource.class);
 
-    private static final String ENTITY_NAME = "testAppReservationPassengers";
+    private static final String ENTITY_NAME = "ReservationPassengers";
 
     // @Value("${jhipster.clientApp.name}")
     private String applicationName = "airlinesApp";
@@ -117,7 +117,7 @@ public class ReservationPassengersResource {
         Optional<ReservationPassengersDTO> reservationPassengersDTO = reservationPassengersService.findOne(id);
         return ResponseUtil.wrapOrNotFound(reservationPassengersDTO);
     }
-    
+
     /**
      * {@code GET  /reservation-passengers/:id} : get the "id"
      * reservationPassengers.
@@ -128,11 +128,10 @@ public class ReservationPassengersResource {
      */
     @GetMapping("/reservation-passengers/boarding-priority")
     public List<PassengersPriorityDTO> getPriorityPassengers() {
-       
+
         return reservationPassengersService.findAllPassengersWithPriority();
     }
-    
-    
+
     /**
      * {@code GET  /reservation-passengers/:id} : get the "id"
      * reservationPassengers.
@@ -143,10 +142,10 @@ public class ReservationPassengersResource {
      */
     @GetMapping("/reservation-passengers/top-destinations")
     public List<ProfitFlightsDTO> getTop10Destinations() {
-       
+
         return reservationPassengersService.getTop10ProfitsFlights();
     }
-    
+
     /**
      * {@code GET  /reservation-passengers/:id} : get the "id"
      * reservationPassengers.
@@ -158,6 +157,28 @@ public class ReservationPassengersResource {
     @GetMapping("/reservation-passengers/monthly-profits")
     public List<MonthlyProfitsDTO> getMonthlyProfits() {
         return reservationPassengersService.getMonthlyProfits();
+    }
+
+    /**
+     * {@code PUT  /reservation-passengers} : Updates an existing
+     * reservationPassengers.
+     *
+     * @param reservationPassengersDTO the reservationPassengersDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
+     *         the updated reservationPassengersDTO, or with status
+     *         {@code 400 (Bad Request)} if the reservationPassengersDTO is not
+     *         valid, or with status {@code 500 (Internal Server Error)} if the
+     *         reservationPassengersDTO couldn't be updated.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PutMapping("/reservation-passengers/{idPassenger}/reservation/{idReservation}/change/{idSeat}")
+    public ResponseEntity<Boolean> changeSeat(@PathVariable String idPassenger, @PathVariable Long idReservation,
+            @PathVariable String idSeat) {
+        reservationPassengersService.changeSeat(idPassenger, idReservation, idSeat);
+        return ResponseEntity.ok().headers(
+                HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, idReservation.toString()))
+                .build();
+
     }
 
     /**
