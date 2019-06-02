@@ -48,11 +48,5 @@ public interface FlightScheduleService {
      */
     List<FlightScheduleDTO> findFlights(Map<String, String> allParams);
 
-    /**
-     * Get the "AirportTakeOff" flightSchedule.
-     *
-     * @param id the id of the entity.
-     */
-    List<FlightScheduleDTO> findOptionalFlights(String airportTakeoff, String airportArrival, Long takeoffDate,
-            Long takeoffDate2);
+  
 }

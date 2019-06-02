@@ -95,19 +95,7 @@ public class FlightScheduleResource {
         return flightScheduleService.findFlights(allParams);
     }
 
-    /**
-     * {@code GET  /flight-schedules} : get all the flightSchedules.
-     *
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list
-     *         of flightSchedules in body.
-     */
-    @GetMapping("/flight-schedules/optional/{takeoffDate}/{takeoffAirport}/{arrivalAirport}")
-    public List<FlightScheduleDTO> getOptionaFlights(@PathVariable Long takeoffDate,
-            @PathVariable String takeoffAirport, @PathVariable String arrivalAirport) {
-
-        return flightScheduleService.findOptionalFlights(takeoffAirport, arrivalAirport, takeoffDate, takeoffDate);
-    }
-
+  
     /**
      * {@code GET  /flight-schedules/:id} : get the "id" flightSchedule.
      *
