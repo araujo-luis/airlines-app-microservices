@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -89,11 +90,9 @@ public class FlightScheduleResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list
      *         of flightSchedules in body.
      */
-    @GetMapping("/flight-schedules/{takeoffDate}/{takeoffAirport}/{arrivalAirport}")
-    public List<FlightScheduleDTO> getFlights(@PathVariable Long takeoffDate, @PathVariable String takeoffAirport,
-            @PathVariable String arrivalAirport) {
-
-        return flightScheduleService.findFlights(takeoffAirport, arrivalAirport, takeoffDate, takeoffDate);
+    @GetMapping("/flight-schedules")
+    public List<FlightScheduleDTO> getFlights(@RequestParam Map<String,String> allParams) {
+        return flightScheduleService.findFlights(allParams);
     }
 
     /**

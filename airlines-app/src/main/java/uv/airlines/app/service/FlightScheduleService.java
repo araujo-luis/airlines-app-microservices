@@ -3,6 +3,7 @@ package uv.airlines.app.service;
 import uv.airlines.app.service.dto.FlightScheduleDTO;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -45,8 +46,7 @@ public interface FlightScheduleService {
      *
      * @param id the id of the entity.
      */
-    List<FlightScheduleDTO> findFlights(String airportTakeoff, String airportArrival, Long takeoffDate,
-            Long takeoffDate2);
+    List<FlightScheduleDTO> findFlights(Map<String, String> allParams);
 
     /**
      * Get the "AirportTakeOff" flightSchedule.

@@ -24,8 +24,11 @@ public class Aircrafts implements Serializable {
     @Column(name = "number", length = 45)
     private String number;
 
-    @Column(name = "capacity")
-    private Integer capacity;
+	@Column(name = "capacity")
+    private int capacity;
+    
+    @Column(name = "seats_taken")
+    private int seatsTaken;
 
     @OneToMany(mappedBy = "aircraft")
     private Set<FlightSchedule> flightSchedules = new HashSet<>();
@@ -69,6 +72,14 @@ public class Aircrafts implements Serializable {
     public Set<FlightSchedule> getFlightSchedules() {
         return flightSchedules;
     }
+    
+    public Integer getSeatsTaken() {
+		return seatsTaken;
+	}
+
+	public void setSeatsTaken(Integer seatsTaken) {
+		this.seatsTaken = seatsTaken;
+	}
 
     public Aircrafts flightSchedules(Set<FlightSchedule> flightSchedules) {
         this.flightSchedules = flightSchedules;

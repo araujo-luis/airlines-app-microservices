@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -90,39 +91,34 @@ public class FlightScheduleServiceImpl implements FlightScheduleService {
         }
 
         @Override
-        public List<FlightScheduleDTO> findFlights(String airportTakeoff, String airportArrival, Long takeoffDate,
-                        Long takeoffDate2) {
-
-                LocalDateTime takeoffLocalDate = Instant.ofEpochMilli(takeoffDate).atZone(ZoneId.systemDefault())
-                                .toLocalDateTime();
-                LocalDateTime takeoffLocalDate2 = Instant.ofEpochMilli(takeoffDate).atZone(ZoneId.systemDefault())
-                                .toLocalDateTime().plusDays(1);
-
-                System.out.println(takeoffLocalDate);
-                System.out.println(takeoffLocalDate2);
-                return flightScheduleRepository
-                                .findByAirportTakeoff_idAndAirportArrival_idAndTakeoffDateGreaterThanEqualAndTakeoffDateLessThan(
-                                                airportTakeoff, airportArrival, takeoffLocalDate, takeoffLocalDate2)
+        public List<FlightScheduleDTO> findFlights(Map<String, String> allParams) {
+        	//String airportTakeoff, String airportArrival, Long takeoffDate, Long takeoffDate2
+        	LocalDateTime takeoffLocalDate;
+        	LocalDateTime takeoffLocalDate2;
+        	String airportTakeoff = allParams.get("airportTakeoff");
+        	String airportArrival = allParams.get("airportArrival");
+        	Long takeoffDate = Long.parseLong(allParams.get("takeoffDate"));
+        	Integer passengers = Integer.parseInt(allParams.get("passengers"));
+        	
+        	if(allParams.containsKey("optional")) {
+        		takeoffLocalDate = Instant.ofEpochMilli(takeoffDate).atZone(ZoneId.systemDefault())
+                        .toLocalDateTime().minusDays(3);
+        		takeoffLocalDate2 = Instant.ofEpochMilli(takeoffDate).atZone(ZoneId.systemDefault())
+                        .toLocalDateTime().plusDays(3);
+        		
+        	}else {
+        		takeoffLocalDate = Instant.ofEpochMilli(takeoffDate).atZone(ZoneId.systemDefault())
+                        .toLocalDateTime();
+        		takeoffLocalDate2 = Instant.ofEpochMilli(takeoffDate).atZone(ZoneId.systemDefault())
+                        .toLocalDateTime().plusDays(1);
+        	}
+        	
+            System.out.println(takeoffLocalDate);
+            System.out.println(takeoffLocalDate2);
+                
+            return flightScheduleRepository.findFlightsAvailable(airportTakeoff, airportArrival, takeoffLocalDate, takeoffLocalDate2, passengers)
                                 .stream().map(flightScheduleMapper::toDto)
                                 .collect(Collectors.toCollection(LinkedList::new));
         }
 
-        @Override
-        public List<FlightScheduleDTO> findOptionalFlights(String airportTakeoff, String airportArrival,
-                        Long takeoffDate, Long takeoffDate2) {
-
-                LocalDateTime takeoffLocalDate = Instant.ofEpochMilli(takeoffDate).atZone(ZoneId.systemDefault())
-                                .toLocalDateTime().minusDays(3);
-                LocalDateTime takeoffLocalDate2 = Instant.ofEpochMilli(takeoffDate).atZone(ZoneId.systemDefault())
-                                .toLocalDateTime().plusDays(3);
-
-                System.out.println(takeoffLocalDate);
-                System.out.println(takeoffLocalDate2);
-
-                return flightScheduleRepository
-                                .findByAirportTakeoff_idAndAirportArrival_idAndTakeoffDateGreaterThanEqualAndTakeoffDateLessThanOrderByFlightRateAsc(
-                                                airportTakeoff, airportArrival, takeoffLocalDate, takeoffLocalDate2)
-                                .stream().map(flightScheduleMapper::toDto)
-                                .collect(Collectors.toCollection(LinkedList::new));
-        }
 }
