@@ -17,6 +17,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import uv.airlines.app.domain.Agencies;
+import uv.airlines.app.domain.Aircrafts;
 import uv.airlines.app.domain.FlightSchedule;
 import uv.airlines.app.domain.Passenger;
 import uv.airlines.app.domain.ReservationPassengers;
@@ -197,6 +198,16 @@ public class AirlinesAppApplication implements CommandLineRunner {
 		
 		// reservationPassengersService.findByFlightPendient(LocalDateTime.now(), new Long(1));
 
+	}
+
+	public void addSeatAutomatic(){
+		Optional<FlightScheduleDTO> flightScheduleDTO = flightScheduleService.findOne(new Long(13));
+		Optional<AircraftsDTO> aircraft = aircraftsService.findOne(flightScheduleDTO.get().getAircraftId());
+
+		int size = aircraft.get().getCapacity();
+
+		
+		
 	}
 
 }
