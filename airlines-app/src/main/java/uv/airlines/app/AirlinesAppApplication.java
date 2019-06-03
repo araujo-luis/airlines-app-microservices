@@ -3,7 +3,9 @@ package uv.airlines.app;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -159,20 +161,25 @@ public class AirlinesAppApplication implements CommandLineRunner {
 	public void generateReservation(int quantity) {
 
 		ReservationsDTO r = new ReservationsDTO();
-		r.setAgenciesId(new Long(1));
-		r.setFlightScheduleId(new Long(13));
+		r.setAgenciesId(new Long(2));
+		r.setFlightScheduleId(new Long(11));
 		r.setReservationDate(Calendar.getInstance().getTime());
 
-		 ReservationPassengersDTO reservationPassengersDTO = new ReservationPassengersDTO();
-		 reservationPassengersDTO.setPaid(true);
-		 reservationPassengersDTO.setPassengerId("bvj");
-		 reservationPassengersDTO.setLuggagesQuanity(3);
-		 reservationPassengersDTO.setPriority(true);
-		 reservationPassengersDTO.setSeatNumber("A1");
-		 reservationPassengersDTO.setFlightRate(30.00);
+		List<String> passengers = Arrays.asList("azt","cwv","czg");
 
-		 List<ReservationPassengersDTO> rs = new ArrayList<>();
-		 rs.add(reservationPassengersDTO);
+		List<ReservationPassengersDTO> rs = new ArrayList<>();
+		
+		for (int i = 0; i<passengers.size(); i++) {
+			ReservationPassengersDTO reservationPassengersDTO = new ReservationPassengersDTO();
+			reservationPassengersDTO.setPaid(true);
+			reservationPassengersDTO.setPassengerId(passengers.get(i));
+			reservationPassengersDTO.setLuggagesQuanity(Faker.instance().number().numberBetween(1, 5));
+			reservationPassengersDTO.setPriority(true);
+			reservationPassengersDTO.setSeatNumber("C" + (i+1));
+			reservationPassengersDTO.setFlightRate(Double.valueOf(Faker.instance().commerce().price(30.00, 100.00)));
+			rs.add(reservationPassengersDTO);	   
+		}
+		 
 		 // That save all without need to use ReservationPassengersService to Save ReservationPassengers
 		 reservationsService.saveAll(r, rs);
 
@@ -204,9 +211,16 @@ public class AirlinesAppApplication implements CommandLineRunner {
 		Optional<FlightScheduleDTO> flightScheduleDTO = flightScheduleService.findOne(new Long(13));
 		Optional<AircraftsDTO> aircraft = aircraftsService.findOne(flightScheduleDTO.get().getAircraftId());
 
-		int size = aircraft.get().getCapacity();
+		int PlaneCapacity = aircraft.get().getCapacity();
+		HashMap<String,ArrayList<Integer>> seatList = new HashMap();
+		ArrayList<Integer> seatNumber = new ArrayList<>();
 
 		
+		ReservationPassengersDTO reservationPassengersDTO;
+
+		// reservationPassengersDTO.se		
+
+
 		
 	}
 
