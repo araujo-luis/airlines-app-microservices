@@ -25,15 +25,18 @@ public interface ReservationPassengersRepository extends JpaRepository<Reservati
 
 	public Optional<ReservationPassengers> findByPassengerIdAndReservationId(String passenger, Long reservation);
 
-	@Query("")
-	public Integer getPassengersWithoutSeat();
+	@Query("select rp from ReservationPassengers rp " + " inner join rp.reservation r  "
+			+ " inner join r.flightSchedule fs "
+			+ " where fs.id = :flightScheduleId and r.agencies.id = :agencyId and rp.seatNumber = ''")
+	public List<ReservationPassengers> getPassengersWithoutSeat(@Param("flightScheduleId") Long idFlightScheduleId,
+			@Param("agencyId") Long idAgencies);
 
-	@Query("select rp  from ReservationPassengers rp " + 
-	" inner join rp.reservation r " +
-	" inner join flightSchedule fs " +
-	" where fs.id = :flightScheduleId && r.agencies.id = :agencieId && rp.seat_number <> '' ") 
-	public List<ReservationPassengers> getBusySeat(@Param("flightScheduleId") String idFlightScheduleId, @Param("agencieId") String idAgencies );
-	
+	@Query("select rp  from ReservationPassengers rp " + " inner join rp.reservation r "
+			+ " inner join r.flightSchedule fs "
+			+ " where fs.id = :flightScheduleId and r.agencies.id = :agencyId and rp.seatNumber != '' ")
+	public List<ReservationPassengers> getBusySeat(@Param("flightScheduleId") Long idFlightScheduleId,
+			@Param("agencyId") Long idAgencies);
+
 	// Q3-1
 	@Query("Select rp from ReservationPassengers rp inner join rp.reservation r inner join r.flightSchedule fs where fs.arrivalDate > :today and r.agencies.id = :agency ")
 	public List<ReservationPassengers> findByFlightPendient(@Param("today") LocalDateTime today,

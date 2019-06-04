@@ -7,8 +7,10 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import com.github.javafaker.Faker;
 
@@ -17,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.remoting.soap.SoapFaultException;
 
 import uv.airlines.app.domain.Agencies;
 import uv.airlines.app.domain.Aircrafts;
@@ -64,7 +67,6 @@ public class AirlinesAppApplication implements CommandLineRunner {
 
 	FlightScheduleMapper flightScheduleMapper;
 
-
 	public static void main(String[] args) {
 		SpringApplication.run(AirlinesAppApplication.class, args);
 	}
@@ -77,8 +79,10 @@ public class AirlinesAppApplication implements CommandLineRunner {
 		// generatePassenger(20);
 		// generateAgencies(10);
 		// generateScheduleFlight(20);
-		generateReservation(1);
-		//testFindReservation();
+		// generateReservation(1);
+		// testFindReservation();
+
+		addSeatAutomatic();
 
 	}
 
@@ -165,23 +169,24 @@ public class AirlinesAppApplication implements CommandLineRunner {
 		r.setFlightScheduleId(new Long(11));
 		r.setReservationDate(Calendar.getInstance().getTime());
 
-		List<String> passengers = Arrays.asList("azt","cwv","czg");
+		List<String> passengers = Arrays.asList("azt", "cwv", "czg");
 
 		List<ReservationPassengersDTO> rs = new ArrayList<>();
-		
-		for (int i = 0; i<passengers.size(); i++) {
+
+		for (int i = 0; i < passengers.size(); i++) {
 			ReservationPassengersDTO reservationPassengersDTO = new ReservationPassengersDTO();
 			reservationPassengersDTO.setPaid(true);
 			reservationPassengersDTO.setPassengerId(passengers.get(i));
 			reservationPassengersDTO.setLuggagesQuanity(Faker.instance().number().numberBetween(1, 5));
 			reservationPassengersDTO.setPriority(true);
-			reservationPassengersDTO.setSeatNumber("C" + (i+1));
+			reservationPassengersDTO.setSeatNumber("C" + (i + 1));
 			reservationPassengersDTO.setFlightRate(Double.valueOf(Faker.instance().commerce().price(30.00, 100.00)));
-			rs.add(reservationPassengersDTO);	   
+			rs.add(reservationPassengersDTO);
 		}
-		 
-		 // That save all without need to use ReservationPassengersService to Save ReservationPassengers
-		 reservationsService.saveAll(r, rs);
+
+		// That save all without need to use ReservationPassengersService to Save
+		// ReservationPassengers
+		reservationsService.saveAll(r, rs);
 
 	}
 
@@ -202,26 +207,73 @@ public class AirlinesAppApplication implements CommandLineRunner {
 		// Boolean isPaid = reservationPassengersService.payReservation("azt", new
 		// Long(4));
 		// System.out.println("Ha sido pagado?" + isPaid);
-		
-		// reservationPassengersService.findByFlightPendient(LocalDateTime.now(), new Long(1));
+
+		// reservationPassengersService.findByFlightPendient(LocalDateTime.now(), new
+		// Long(1));
 
 	}
 
-	public void addSeatAutomatic(){
+	public void addSeatAutomatic() {
+
 		Optional<FlightScheduleDTO> flightScheduleDTO = flightScheduleService.findOne(new Long(13));
 		Optional<AircraftsDTO> aircraft = aircraftsService.findOne(flightScheduleDTO.get().getAircraftId());
-
+		List<ReservationPassengersDTO> listOfSeatBusy = reservationPassengersService.getBusySeat(new Long(13),
+				new Long(1));
+		List<ReservationPassengersDTO> PassengerWithoutSeat = reservationPassengersService
+				.getPassengersWithoutSeat(new Long(13), new Long(1));
 		int PlaneCapacity = aircraft.get().getCapacity();
-		HashMap<String,ArrayList<Integer>> seatList = new HashMap();
 		ArrayList<Integer> seatNumber = new ArrayList<>();
+		HashMap<String, ArrayList<Integer>> seatOfPlane = new HashMap();
+		Integer seatFreeCount = 0;
+		// Un avión puede tener entre 4,6 columnas
+		Integer rows = PlaneCapacity <= 60 ? PlaneCapacity / 4 : PlaneCapacity / 6;
+		for (int i = 1; i <= rows; i++) {
+			seatNumber.add(i);
+		}
 
-		
-		ReservationPassengersDTO reservationPassengersDTO;
+		if (PlaneCapacity <= 60) {
+			seatOfPlane.put("A", seatNumber);
+			seatOfPlane.put("B", seatNumber);
+			seatOfPlane.put("C", seatNumber);
+			seatOfPlane.put("D", seatNumber);
+		} else {
+			seatOfPlane.put("A", seatNumber);
+			seatOfPlane.put("B", seatNumber);
+			seatOfPlane.put("C", seatNumber);
+			seatOfPlane.put("D", seatNumber);
+			seatOfPlane.put("E", seatNumber);
+			seatOfPlane.put("F", seatNumber);
+		}
 
-		// reservationPassengersDTO.se		
+		for (ReservationPassengersDTO rp : listOfSeatBusy) {
+			String column = rp.getSeatNumber().substring(0, 1);
+			String row = rp.getSeatNumber().substring(1);
 
+			ArrayList<Integer> seatFree = (ArrayList<Integer>) seatOfPlane.get(column).stream()
+					.filter(s -> s != Integer.parseInt(row)).collect(Collectors.toList());
 
-		
+			seatOfPlane.put(column, seatFree);
+			seatFreeCount = seatFreeCount + seatFree.size();
+			if (seatFreeCount > PassengerWithoutSeat.size()) {
+				break;
+			}
+			int end = PassengerWithoutSeat.size();
+			Integer index = 0;
+
+			for (Map.Entry<String, ArrayList<Integer>> entry : seatOfPlane.entrySet()) {
+				String col = entry.getKey();
+				ArrayList<Integer> r = entry.getValue();
+				for (Integer rowPlane : r) {
+					ReservationPassengersDTO passenger = PassengerWithoutSeat.get(index);
+					passenger.setSeatNumber(col + rowPlane);
+					reservationPassengersService.save(passenger);
+					index = index + 1;
+					if (index > end)
+						break;
+				}
+				if (index > end)
+					break;
+			}
+		}
 	}
-
 }

@@ -141,10 +141,12 @@ public class ReservationPassengersServiceImpl implements ReservationPassengersSe
         log.debug("Requesto to cancel ReservationPassengers : {}", passenger, reservation);
         Boolean canceled = false;
 
-        Optional<ReservationPassengers> r = reservationPassengersRepository.findByPassengerIdAndReservationId(passenger, reservation);
+        Optional<ReservationPassengers> r = reservationPassengersRepository.findByPassengerIdAndReservationId(passenger,
+                reservation);
 
         if (r.isPresent()) {
-            // TODO  Q5 Change this for a query, and add state to PassengerReservation or use Delete method
+            // TODO Q5 Change this for a query, and add state to PassengerReservation or use
+            // Delete method
             LocalDateTime dateArrival = r.get().getReservation().getFlightSchedule().getArrivalDate();
             LocalDateTime now = LocalDateTime.now();
             Period period = Period.between(dateArrival.toLocalDate(), LocalDate.now());
@@ -191,11 +193,23 @@ public class ReservationPassengersServiceImpl implements ReservationPassengersSe
 
     @Override
     public List<ReservationPassengersDTO> findByFlightPendient(LocalDateTime today, Long idAgencies) {
-        
-        List<ReservationPassengers> r = reservationPassengersRepository.findByFlightPendient(LocalDateTime.now(), idAgencies);
+
+        List<ReservationPassengers> r = reservationPassengersRepository.findByFlightPendient(LocalDateTime.now(),
+                idAgencies);
         System.out.println("Listado de pasajeros reservados " + r.size());
         return null;
     }
 
-    
+    @Override
+    public List<ReservationPassengersDTO> getPassengersWithoutSeat(Long idFlightScheduleId, Long idAgencies) {
+        return reservationPassengersRepository.getPassengersWithoutSeat(idFlightScheduleId, idAgencies).stream()
+                .map(reservationPassengersMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    @Override
+    public List<ReservationPassengersDTO> getBusySeat(Long idFlightScheduleId, Long idAgencies) {
+        return reservationPassengersRepository.getBusySeat(idFlightScheduleId, idAgencies).stream()
+                .map(reservationPassengersMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
+    }
+
 }

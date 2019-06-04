@@ -5,9 +5,7 @@ import uv.airlines.app.service.dto.PassengersPriorityDTO;
 import uv.airlines.app.service.dto.ProfitFlightsDTO;
 import uv.airlines.app.service.dto.ReservationPassengersDTO;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,8 +30,23 @@ public interface ReservationPassengersService {
      */
     List<ReservationPassengersDTO> findAll();
 
+    /**
+     * Get all the passengers without Seat.
+     *
+     * @return the list of entities.
+     */
 
-    public List<ReservationPassengersDTO> findByFlightPendient(LocalDateTime today,Long idAgencies);
+    List<ReservationPassengersDTO> getPassengersWithoutSeat(Long idFlightScheduleId, Long idAgencies);
+
+    /**
+     * Get all the get Busy seat.
+     *
+     * @return the list of entities.
+     */
+    List<ReservationPassengersDTO> getBusySeat(Long idFlightScheduleId, Long idAgencies);
+
+    List<ReservationPassengersDTO> findByFlightPendient(LocalDateTime today, Long idAgencies);
+
     /**
      * Get all the Passengers who have bought tickets with priority more than a
      * parameter.

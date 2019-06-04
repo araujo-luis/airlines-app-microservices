@@ -47,8 +47,9 @@ public class testApp {
          }
 
         test.forEach((k, v) -> {
-            v.stream().forEach(i -> System.out.print(k + i + " "));
-            System.out.println("");
+            v.stream().forEach(i -> {
+                System.out.println("");
+            });
         });
     }
 
