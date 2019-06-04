@@ -257,23 +257,25 @@ public class AirlinesAppApplication implements CommandLineRunner {
 			if (seatFreeCount > PassengerWithoutSeat.size()) {
 				break;
 			}
-			int end = PassengerWithoutSeat.size();
-			Integer index = 0;
+		}
 
-			for (Map.Entry<String, ArrayList<Integer>> entry : seatOfPlane.entrySet()) {
-				String col = entry.getKey();
-				ArrayList<Integer> r = entry.getValue();
-				for (Integer rowPlane : r) {
-					ReservationPassengersDTO passenger = PassengerWithoutSeat.get(index);
-					passenger.setSeatNumber(col + rowPlane);
-					reservationPassengersService.save(passenger);
-					index = index + 1;
-					if (index > end)
-						break;
-				}
+		int end = PassengerWithoutSeat.size();
+		Integer index = 0;
+
+		for (Map.Entry<String, ArrayList<Integer>> entry : seatOfPlane.entrySet()) {
+			String col = entry.getKey();
+			ArrayList<Integer> r = entry.getValue();
+			for (Integer rowPlane : r) {
+				ReservationPassengersDTO passenger = PassengerWithoutSeat.get(index);
+				passenger.setSeatNumber(col + rowPlane);
+				System.out.println("Entrada de valor a reservacion pasajero !!!!!");
+				reservationPassengersService.save(passenger);
+				index = index + 1;
 				if (index > end)
 					break;
 			}
+			if (index > end)
+				break;
 		}
 	}
 }
